@@ -2717,7 +2717,7 @@ CB:MoveObject(playerid, blockid, world, params[])
 		Float:speed;
 	
 	ReturnCommand(playerid, params, world);
-	if(sscanf(params, "dfffF(0.0)F(0.0)F(0.0)F(0.0)", objectid, x, y, z, speed, rx, rz, ry))
+	if(sscanf(params, "dfffF(0.0)F(0.0)F(0.0)F(0.0)", objectid, x, y, z, speed, rx, ry, rz))
 		return CBWrongData(playerid, blockid, world);
 	
 	if(speed < 0.0 || speed > 50.0)
