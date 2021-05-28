@@ -966,9 +966,14 @@ else if(!strcmp(str, "fa", true))
 	if(!IsPlayerOnline(userid))
 		userid = playerid;
 	
-	new Float:Angle;
-	GetPlayerFacingAngle(userid, Angle);
-	format(str, sizeof(str), " %.1f", Angle);
+	new Float:angle;
+	
+	if(IsPlayerInAnyVehicle(playerid))
+		GetVehicleZAngle(GetPlayerVehicleID(playerid), angle);
+	else
+		GetPlayerFacingAngle(userid, angle);
+		
+	format(str, sizeof(str), " %.1f", angle);
 }	
 else if(!strcmp(str, "afk", true))
 {
