@@ -2842,6 +2842,78 @@ CB:SetModelObject(playerid, blockid, world, params[])
 	return true;
 }
 
+CB:SelectObject(playerid, blockid, world, params[]) 
+{	
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+			
+		    SelectObject(i);
+		}
+		
+		return true;
+	}
+
+	if(world != GetPlayerVirtualWorld(playerid))
+		return true;	
+	
+	SelectObject(playerid);
+	return true;
+}
+
+CB:EditObject(playerid, blockid, world, params[]) {
+    new objectid;
+
+	ReturnCommand(playerid, params, world);
+	if(sscanf(params, "d", objectid))
+		return CBWrongData(playerid, blockid, world);
+
+    if (objectid == 0) {
+        SelectObject(playerid);
+        return true;
+    }
+
+    objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+	
+    if(objectid <= 0)
+		return CBWrongData(playerid, blockid, world);
+
+    EditDynamicObject(playerid, objectid);
+
+    return true;
+}
+
+CB:CancelEdit(playerid, blockid, world, params[]) 
+{	
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+			
+		    CancelEdit(i);
+		}
+		
+		return true;
+	}
+
+	if(world != GetPlayerVirtualWorld(playerid))
+		return true;	
+	
+	CancelEdit(playerid);
+	return true;
+}
+
 CB:Create3DText(playerid, blockid, world, params[])
 {
 	new 
