@@ -1,14 +1,14 @@
 /*
-	CB:название переменной объявляется в cbFunctionArray.inc -> cmBlockList
-	Затем записывается индетефикатор в категорию cbBlockSort_
+	CB:Г­Г Г§ГўГ Г­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г®ГЎГєГїГўГ«ГїГҐГІГ±Гї Гў cbFunctionArray.inc -> cmBlockList
+	Г‡Г ГІГҐГ¬ Г§Г ГЇГЁГ±Г»ГўГ ГҐГІГ±Гї ГЁГ­Г¤ГҐГІГҐГґГЁГЄГ ГІГ®Г° Гў ГЄГ ГІГҐГЈГ®Г°ГЁГѕ cbBlockSort_
 
-	ReturnCommand(playerid, params, world); - Передает из params[] в cbReturnList.inc -> params[]
-	Там происходит преобразование возвращаемых команд по типу #name# и т.д.
+	ReturnCommand(playerid, params, world); - ГЏГҐГ°ГҐГ¤Г ГҐГІ ГЁГ§ params[] Гў cbReturnList.inc -> params[]
+	Г’Г Г¬ ГЇГ°Г®ГЁГ±ГµГ®Г¤ГЁГІ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГҐ ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬Г»Гµ ГЄГ®Г¬Г Г­Г¤ ГЇГ® ГІГЁГЇГі #name# ГЁ ГІ.Г¤.
 	
-	Если функция может выполнятся на группу игроков есть проверка:
+	Г…Г±Г«ГЁ ГґГіГ­ГЄГ¶ГЁГї Г¬Г®Г¦ГҐГІ ГўГ»ГЇГ®Г«Г­ГїГІГ±Гї Г­Г  ГЈГ°ГіГЇГЇГі ГЁГЈГ°Г®ГЄГ®Гў ГҐГ±ГІГј ГЇГ°Г®ГўГҐГ°ГЄГ :
 	if(cmBlock[world][blockid][cbMode])
 		
-	Передача ID игрока и ID блока для прохождения соответсвия игрока требованиям проверки в разделе "Группа игроков"
+	ГЏГҐГ°ГҐГ¤Г Г·Г  ID ГЁГЈГ°Г®ГЄГ  ГЁ ID ГЎГ«Г®ГЄГ  Г¤Г«Гї ГЇГ°Г®ГµГ®Г¦Г¤ГҐГ­ГЁГї Г±Г®Г®ГІГўГҐГІГ±ГўГЁГї ГЁГЈГ°Г®ГЄГ  ГІГ°ГҐГЎГ®ГўГ Г­ГЁГїГ¬ ГЇГ°Г®ГўГҐГ°ГЄГЁ Гў Г°Г Г§Г¤ГҐГ«ГҐ "ГѓГ°ГіГЇГЇГ  ГЁГЈГ°Г®ГЄГ®Гў"
 	if(!cbCompareMode(i, blockid))
 */
 
@@ -721,7 +721,7 @@ CB:giveVehicle(playerid, blockid, world, params[])
 			
 			if(vehicleid == -1)
 			{
-				SendErrorMessage(playerid, "Достигнут лимит транспорта.");
+				SendErrorMessage(playerid, "Г„Г®Г±ГІГЁГЈГ­ГіГІ Г«ГЁГ¬ГЁГІ ГІГ°Г Г­Г±ГЇГ®Г°ГІГ .");
 				return CBWrongData(playerid, blockid, world);
 			}
 			
@@ -746,7 +746,7 @@ CB:giveVehicle(playerid, blockid, world, params[])
 	
 	if(vehicleid == -1)
 	{
-		SendErrorMessage(playerid, "Достигнут лимит транспорта.");
+		SendErrorMessage(playerid, "Г„Г®Г±ГІГЁГЈГ­ГіГІ Г«ГЁГ¬ГЁГІ ГІГ°Г Г­Г±ГЇГ®Г°ГІГ .");
 		return CBWrongData(playerid, blockid, world);
 	}
 	
@@ -3005,7 +3005,7 @@ CB:ShowDialog(playerid, blockid, world, params[])
 				continue;
 			
 			pData[i][pRetVal][10] = callBlock;
-			Dialog_Show(i, CBMainDialog, type, "\t{FFFFFF}[ Командный блок ]", str, "Y", "X");
+			Dialog_Show(i, CBMainDialog, type, "\t{FFFFFF}[ ГЉГ®Г¬Г Г­Г¤Г­Г»Г© ГЎГ«Г®ГЄ ]", str, "Y", "X");
 		}
 		
 		return true;
@@ -3015,7 +3015,7 @@ CB:ShowDialog(playerid, blockid, world, params[])
 		return true;	
 	
 	pData[playerid][pRetVal][10] = callBlock;
-	Dialog_Show(playerid, CBMainDialog, type, "\t{FFFFFF}[ Командный блок ]", str, "Y", "X");
+	Dialog_Show(playerid, CBMainDialog, type, "\t{FFFFFF}[ ГЉГ®Г¬Г Г­Г¤Г­Г»Г© ГЎГ«Г®ГЄ ]", str, "Y", "X");
 	return true;
 }
 
@@ -3980,6 +3980,38 @@ CB:CallTriggerBlock(playerid, blockid, world, params[])
 	if(OnCallSwitchBlock(playerid, callBlock, world, data) == 0)
 		return CBWrongData(playerid, blockid, world);
 
+	return true;
+}
+
+CB:SendDeathMess(playerid, blockid, world, params[])
+{
+	new killer, plyid, weapon;
+	
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params, "ddd", killer, plyid, weapon))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+			
+			SendDeathMessageToPlayer(i, killer, plyid, weapon)
+		}
+		
+		return true;
+	}
+
+	if(world != GetPlayerVirtualWorld(playerid))
+		return true;
+		
+	SendDeathMessageToPlayer(playerid, killer, plyid, weapon)
 	return true;
 }
 
