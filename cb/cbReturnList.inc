@@ -602,6 +602,88 @@ else if(!strcmp(str, "getDistAction", true))
 	new Float:distance = GetPlayerDistanceFromPoint(playerid, x, y, z);
 	format(str, sizeof(str), "%.2f", distance);
 }
+else if(!strcmp(str, "omodel", true))
+{
+    new objectid,
+        modelid;
+
+	if(sscanf(arg, "d", objectid))
+		continue;
+
+	objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+	if(objectid <= 0)
+        continue;
+	
+    modelid = Streamer_GetIntData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_MODEL_ID);
+	
+    valstr(str, modelid);
+}
+else if(!strcmp(str, "oXYZ", true))
+{
+    new objectid,
+		Float:x,
+		Float:y,
+		Float:z;
+
+	if(sscanf(arg, "d", objectid))
+		continue;
+
+	objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+	if(objectid <= 0)
+        continue;
+
+	GetDynamicObjectPos(objectid, x, y, z);
+	
+    format(str, sizeof(str), "%.2f %.2f %.2f", x, y, z);
+}
+else if(!strcmp(str, "oX", true))
+{
+    new objectid,
+        Float:cord;
+
+	if(sscanf(arg, "d", objectid))
+		continue;
+
+	objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+	if(objectid <= 0)
+        continue;
+	
+	Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_X, cord);
+
+    format(str, sizeof(str), "%.2f", cord);
+}
+else if(!strcmp(str, "oY", true))
+{
+    new objectid,
+        Float:cord;
+
+	if(sscanf(arg, "d", objectid))
+		continue;
+
+	objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+	if(objectid <= 0)
+        continue;
+	
+	Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_Y, cord);
+
+    format(str, sizeof(str), "%.2f", cord);
+}
+else if(!strcmp(str, "oZ", true))
+{
+    new objectid,
+        Float:cord;
+
+	if(sscanf(arg, "d", objectid))
+		continue;
+
+	objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+	if(objectid <= 0)
+        continue;
+	
+	Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_Z, cord);
+
+    format(str, sizeof(str), "%.2f", cord);
+}
 else if(!strcmp(str, "actionXYZ", true))
 {
 	new 
