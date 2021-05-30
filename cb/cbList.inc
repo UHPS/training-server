@@ -9,7 +9,7 @@
 
 	Передача ID игрока и ID блока для прохождения соответствия игрока требованиям проверки в разделе "Группа игроков"
 	if(!cbCompareMode(i, blockid))
-/*
+*/
 
 
 CB:setHealth(playerid, blockid, world, params[])
