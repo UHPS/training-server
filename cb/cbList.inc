@@ -1,16 +1,15 @@
 /*
-	CB:название переменной объявляется в cbFunctionArray.inc -> cmBlockList
-	Затем записывается индетефикатор в категорию cbBlockSort_
+	CB:РЅР°Р·РІР°РЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ РѕР±СЉСЏРІР»СЏРµС‚СЃСЏ РІ cbFunctionArray.inc -> cmBlockList
+	Р—Р°С‚РµРј Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РІ РєР°С‚РµРіРѕСЂРёСЋ cbBlockSort_
+	ReturnCommand(playerid, params, world); - РџРµСЂРµРґР°РµС‚ РёР· params[] РІ cbReturnList.inc -> params[]
+	РўР°Рј РїСЂРѕРёСЃС…РѕРґРёС‚ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РІРѕР·РІСЂР°С‰Р°РµРјС‹С… РєРѕРјР°РЅРґ РїРѕ С‚РёРїСѓ #name# Рё С‚.Рґ.
 
-	ReturnCommand(playerid, params, world); - Передает из params[] в cbReturnList.inc -> params[]
-	Там происходит преобразование возвращаемых команд по типу #name# и т.д.
-	
-	Если функция может выполнятся на группу игроков есть проверка:
+	Р•СЃР»Рё С„СѓРЅРєС†РёСЏ РјРѕР¶РµС‚ РІС‹РїРѕР»РЅСЏС‚СЊСЃСЏ РЅР° РіСЂСѓРїРїСѓ РёРіСЂРѕРєРѕРІ РµСЃС‚СЊ РїСЂРѕРІРµСЂРєР°:
 	if(cmBlock[world][blockid][cbMode])
-		
-	Передача ID игрока и ID блока для прохождения соответсвия игрока требованиям проверки в разделе "Группа игроков"
+
+	РџРµСЂРµРґР°С‡Р° ID РёРіСЂРѕРєР° Рё ID Р±Р»РѕРєР° РґР»СЏ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РёРіСЂРѕРєР° С‚СЂРµР±РѕРІР°РЅРёСЏРј РїСЂРѕРІРµСЂРєРё РІ СЂР°Р·РґРµР»Рµ "Р“СЂСѓРїРїР° РёРіСЂРѕРєРѕРІ"
 	if(!cbCompareMode(i, blockid))
-*/
+/*
 
 
 CB:setHealth(playerid, blockid, world, params[])
@@ -721,7 +720,7 @@ CB:giveVehicle(playerid, blockid, world, params[])
 			
 			if(vehicleid == -1)
 			{
-				SendErrorMessage(playerid, "Достигнут лимит транспорта.");
+				SendErrorMessage(playerid, "Г„Г®Г±ГІГЁГЈГ­ГіГІ Г«ГЁГ¬ГЁГІ ГІГ°Г Г­Г±ГЇГ®Г°ГІГ .");
 				return CBWrongData(playerid, blockid, world);
 			}
 			
@@ -746,7 +745,7 @@ CB:giveVehicle(playerid, blockid, world, params[])
 	
 	if(vehicleid == -1)
 	{
-		SendErrorMessage(playerid, "Достигнут лимит транспорта.");
+		SendErrorMessage(playerid, "Г„Г®Г±ГІГЁГЈГ­ГіГІ Г«ГЁГ¬ГЁГІ ГІГ°Г Г­Г±ГЇГ®Г°ГІГ .");
 		return CBWrongData(playerid, blockid, world);
 	}
 	
@@ -3005,7 +3004,7 @@ CB:ShowDialog(playerid, blockid, world, params[])
 				continue;
 			
 			pData[i][pRetVal][10] = callBlock;
-			Dialog_Show(i, CBMainDialog, type, "\t{FFFFFF}[ Командный блок ]", str, "Y", "X");
+			Dialog_Show(i, CBMainDialog, type, "\t{FFFFFF}[ ГЉГ®Г¬Г Г­Г¤Г­Г»Г© ГЎГ«Г®ГЄ ]", str, "Y", "X");
 		}
 		
 		return true;
@@ -3015,7 +3014,7 @@ CB:ShowDialog(playerid, blockid, world, params[])
 		return true;	
 	
 	pData[playerid][pRetVal][10] = callBlock;
-	Dialog_Show(playerid, CBMainDialog, type, "\t{FFFFFF}[ Командный блок ]", str, "Y", "X");
+	Dialog_Show(playerid, CBMainDialog, type, "\t{FFFFFF}[ ГЉГ®Г¬Г Г­Г¤Г­Г»Г© ГЎГ«Г®ГЄ ]", str, "Y", "X");
 	return true;
 }
 
