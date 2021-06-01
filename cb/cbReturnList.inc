@@ -1135,3 +1135,32 @@ else if(!strcmp(str, "ext", true))
 		default: continue;
 	}
 }
+else if(!strcmp(str, "nearply", true))
+{
+	sscanf(arg, "d", userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+
+	new	interiorid = GetPlayerInterior(userid);
+	
+	new	Float: X,
+		Float: Y,
+		Float: Z;
+		
+	new	lastData[2] = { cellmax, -1 };
+	
+	foreach(new i : Player) {
+	
+		if(!(GetPlayerVirtualWorld(i) == world && GetPlayerInterior(i) == interiorid) || i == userid)
+													continue;
+		
+		if(GetPlayerPos(i, X, Y, Z) && (floatround(GetPlayerDistanceFromPoint(userid, X, Y, Z)) < lastData[0])) {
+	
+			lastData[0] = floatround(GetPlayerDistanceFromPoint(userid, X, Y, Z));
+			lastData[1] = i;
+			
+		}
+	}
+	
+	valstr(str, lastData[1]);
+}
