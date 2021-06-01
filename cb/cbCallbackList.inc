@@ -563,6 +563,23 @@ function CB_ClickMap(playerid, Float:x, Float:y, Float:z)
 	return true;
 }
 
+function CB_ClickPlayer(playerid, clickedplayerid)
+{
+	pData[playerid][pRetStr] = EOS;	
+	pData[playerid][pRetVal][0] = playerid;
+	pData[playerid][pRetVal][1] = clickedplayerid;
+	pData[playerid][pRetVal][2] = false;
+	pData[playerid][pRetVal][3] = false;
+	pData[playerid][pRetVal][4] = false;
+	pData[playerid][pRetVal][5] = false;
+	pData[playerid][pRetVal][6] = false;
+	pData[playerid][pRetVal][7] = false;
+	pData[playerid][pRetVal][8] = false;
+	pData[playerid][pRetVal][9] = false;
+	
+	return true;
+}
+
 
 function CB_StartEngine(playerid, vehicleid)
 {
