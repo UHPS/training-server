@@ -1050,8 +1050,8 @@ else if(!strcmp(str, "fa", true))
 	
 	new Float:angle;
 	
-	if(IsPlayerInAnyVehicle(playerid))
-		GetVehicleZAngle(GetPlayerVehicleID(playerid), angle);
+	if(IsPlayerInAnyVehicle(userid))
+		GetVehicleZAngle(GetPlayerVehicleID(userid), angle);
 	else
 		GetPlayerFacingAngle(userid, angle);
 		
