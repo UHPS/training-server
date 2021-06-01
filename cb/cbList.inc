@@ -3982,6 +3982,80 @@ CB:CallTriggerBlock(playerid, blockid, world, params[])
 	return true;
 }
 
+CB:SpectatePlayer(playerid, blockid, world, params[])
+{
+	new plyid, targetid;
+	
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params, "dd", plyid, targetid))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(!(GetPlayerVirtualWorld(plyid) == world && GetPlayerVirtualWorld(targetid) == world))
+		return true;
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+			
+			SetPlayerInterior(i, GetPlayerInterior(targetid));
+			TogglePlayerSpectating(i, true);
+			PlayerSpectatePlayer(i, targetid);
+		}
+		
+		return true;
+	}
+	
+	SetPlayerInterior(plyid, GetPlayerInterior(targetid));
+	TogglePlayerSpectating(plyid, true);
+	PlayerSpectatePlayer(plyid, targetid);
+	
+	return true;
+}
+
+CB:SpectateVehicle(playerid, blockid, world, params[])
+{
+	new plyid, vehid;
+	
+	ReturnCommand(playerid, params, world);
+	
+	// Not sync interior vehicle for GetVehicle Interior :(
+	CBWrongData(playerid, blockid, world);
+	return true;
+}
+
+CB:SpectateDisable(playerid, blockid, world, params[])
+{
+	ReturnCommand(playerid, params, world);
+
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+			
+			TogglePlayerSpectating(i, false);
+		}
+		
+		return true;
+	}
+	
+	TogglePlayerSpectating(playerid, false);
+	
+	return true;
+}
+
 /*
 CB:donate(playerid, params[])
 {
