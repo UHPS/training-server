@@ -24,6 +24,7 @@
 #define CB_AREA_RP_DEATH	34
 #define CB_AREA_LEAVE		35
 #define CB_CLICK_MAP		36
+#define CB_CLICK_PLAYER		37
 
 new const cmCallBack[][] = {
 	{"Вход"},
@@ -68,5 +69,6 @@ new const cmCallBack[][] = {
 	{"Заглушить двигатель"},
 	{"РП смерть"},
 	{"Выход из мира"},
-	{"Метка на карте"}
+	{"Метка на карте"},
+	{"Выбор игрока в TAB"}
 };

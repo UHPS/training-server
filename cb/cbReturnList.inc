@@ -1135,3 +1135,53 @@ else if(!strcmp(str, "ext", true))
 		default: continue;
 	}
 }
+else if(!strcmp(str, "nearply", true))
+{
+	sscanf(arg, "d", userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+
+	new	interiorid = GetPlayerInterior(userid);
+	
+	new	Float: X,
+		Float: Y,
+		Float: Z;
+		
+	new	lastData[2] = { cellmax, -1 };
+	
+	foreach(new i : Player) {
+	
+		if(!(GetPlayerVirtualWorld(i) == world && GetPlayerInterior(i) == interiorid) || i == userid)
+													continue;
+		
+		if(GetPlayerPos(i, X, Y, Z) && (floatround(GetPlayerDistanceFromPoint(userid, X, Y, Z)) < lastData[0])) {
+	
+			lastData[0] = floatround(GetPlayerDistanceFromPoint(userid, X, Y, Z));
+			lastData[1] = i;
+			
+		}
+	}
+	
+	valstr(str, lastData[1]);
+}
+else if(!strcmp(str, "camtarget", true))
+{	
+	if(sscanf(arg, "d", arg[0]))
+		continue;
+	
+	if(arg[0] < 1 || arg[0] > 4)
+		continue;
+		
+	new targetid = -1;
+	
+	EnablePlayerCameraTarget(playerid, true);
+	
+	if(arg[0] == 1) targetid = GetPlayerCameraTargetPlayer(playerid);
+	if(arg[0] == 2) targetid = GetPlayerCameraTargetActor(playerid);
+	if(arg[0] == 3) targetid = GetPlayerCameraTargetObject(playerid);
+	if(arg[0] == 4) targetid = GetPlayerCameraTargetVehicle(playerid);
+	
+	EnablePlayerCameraTarget(playerid, false);
+	
+	valstr(str, targetid);
+}
