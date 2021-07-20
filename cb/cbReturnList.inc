@@ -971,9 +971,9 @@ else if(!strcmp(str, "raycast", true))
 		Float:pX, Float:pY, Float:pZ,
 		Float:vX, Float:vY, Float:vZ,
 		Float:atX, Float:atY, Float:atZ,
-		category[24];
+		category[24], coord[4] = "xyz";
 	
-	sscanf(arg, "s[24]D(30)D(0)", category, arg[0], arg[1]);
+	sscanf(arg, "s[24]D(30)D(0)s[4]", category, arg[0], arg[1], coord);
 	
 	if(!strcmp(category, "cam", true))
 	{
@@ -1025,6 +1025,21 @@ else if(!strcmp(str, "raycast", true))
 	{
 		format(str, sizeof(str), "%.1f %.1f %.1f", atX, atY, atZ);
 	}
+	
+	if(!strcmp(coord, "xyz"))
+		continue;
+	
+	new Float:cX, Float:cY, Float:cZ;
+	
+	if(sscanf(str, "fff", cX, cY, cZ))
+		continue;
+	
+	if(!strcmp(coord, "x"))
+		format(str, sizeof(str), "%.1f", cX);
+	else if(!strcmp(coord, "y"))
+		format(str, sizeof(str), "%.1f", cY);
+	else if(!strcmp(coord, "z"))
+		format(str, sizeof(str), "%.1f", cZ);
 }			
 else if(!strcmp(str, "getZ", true))
 {
