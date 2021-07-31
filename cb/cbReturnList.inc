@@ -495,7 +495,32 @@ else if(!strcmp(str, "GetDistVeh", true))
 		playerid = arg[1];
 
 	valstr(str, floatround(GetPlayerDistanceFromVehicle(playerid, tempWorld[world][vehSlot][ arg[0] ])));
-}				
+}
+else if(!strcmp(str, "GetDistCar", true))
+{
+	if(sscanf(arg, "dD(-1)", arg[0], arg[1]))
+		continue;
+	
+	if(arg[0] < 1 || arg[0] > GetVehiclePoolSize())
+		continue;
+	
+	if(IsPlayerOnline((arg[1])))
+		playerid = arg[1];
+	
+	if(!IsValidVehicle(arg[0]))
+	{
+		valstr(str, 9998);
+		continue;
+	}
+		
+	if(GetVehicleVirtualWorld(arg[0]) != GetPlayerVirtualWorld(playerid))
+	{
+		valstr(str, 9999);
+		continue;
+	}
+
+	valstr(str, floatround(GetPlayerDistanceFromVehicle(playerid, arg[0])));
+}
 else if(!strcmp(str, "GetDistObject", true))
 {
 	if(sscanf(arg, "dD(-1)", arg[0], arg[1]))
