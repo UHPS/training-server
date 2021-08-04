@@ -1179,24 +1179,3 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
-else if(!strcmp(str, "camtarget", true))
-{	
-	if(sscanf(arg, "d", arg[0]))
-		continue;
-	
-	if(arg[0] < 1 || arg[0] > 4)
-		continue;
-		
-	new targetid = -1;
-	
-	EnablePlayerCameraTarget(playerid, true);
-	
-	if(arg[0] == 1) targetid = GetPlayerCameraTargetPlayer(playerid);
-	if(arg[0] == 2) targetid = GetPlayerCameraTargetActor(playerid);
-	if(arg[0] == 3) targetid = GetPlayerCameraTargetObject(playerid);
-	if(arg[0] == 4) targetid = GetPlayerCameraTargetVehicle(playerid);
-	
-	EnablePlayerCameraTarget(playerid, false);
-	
-	valstr(str, targetid);
-}
