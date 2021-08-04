@@ -40,11 +40,20 @@ stock worldInventoryShowItem(playerid, item)
         world = GetPlayerVirtualWorld(playerid),
         str[256];
 
-    format(str, sizeof(str), "Название:\t[ %s ]\nОписание:\t[ %.24s ]\nМодель:\t[ %d ]\nДекремент:\t[ %d ]\nСтатус:\t[ %s ]\n \t \nОчистить\t", 
+    format(str, sizeof(str), "Название:\t[ %s ]\n\
+        Описание:\t[ %.24s ]\n\
+        Модель:\t[ %d ]\n\
+        Декремент:\t[ %d ]\n\
+        Командный Блок:\t[ %d ]\n\
+        Статус:\t[ %s ]\n\
+         \t \n\
+        Очистить\t",
+
         worldInventory[world][item][slotName],
         worldInventory[world][item][slotDescription],
         worldInventory[world][item][slotModel],
         worldInventory[world][item][slotQuantity],
+        worldInventory[world][item][slotBlock],
         worldInventory[world][item][slotStatus] ? SWITCH_ON : SWITCH_OFF
     );
 
@@ -61,7 +70,8 @@ Dialog:worldInventoryShowItem(playerid, response, listitem, inputtext[])
         case 1: worldInventorySetDescription(playerid);
         // case 2: worldInventorySetModel(playerid);
         // case 3: worldInventorySetQuantity(playerid);
-        // case 4: worldInventoryToggleStatus(playerid);
+        // case 4: worldInentorySetBlock(playerid);
+        // case 5: worldInventoryToggleStatus(playerid);
         case 5: worldInventoryDestroyItem(playerid);
         default: worldInventoryShowItem(playerid, getPlayerItem(playerid));
     }
@@ -171,7 +181,7 @@ stock playerInvitoryUseItem(playerid)
 
 /**
  * Игрок выкидывает предмет
- * data[] - должен хранить в себе предмет и кол.
+ * 
  */
 stock playerInvitoryDropItem(playerid)
 {

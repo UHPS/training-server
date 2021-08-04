@@ -12,6 +12,7 @@ enum worldInventoryEnum
     slotDescription[WORLD_INVENTORY_SLOT_DESCRIPTION],
     slotModel,
     slotQuantity,
+    slotBlock,
     slotStatus
 }
 
