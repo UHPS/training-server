@@ -1,6 +1,6 @@
 /**
  * Показать список всех существующих предметров в мире
- * 
+ *
  */
 stock worldInventoryIndex(playerid, world, page=0)
 {
@@ -9,7 +9,7 @@ stock worldInventoryIndex(playerid, world, page=0)
     for (new i = page * WORLD_INVENTORY_PER_PAGE; i < page * WORLD_INVENTORY_PER_PAGE + WORLD_INVENTORY_PER_PAGE; i++)
     {
         if (i > WORLD_INVENTORY_MAX_ITEMS) break;
-        
+
         format(inventory, sizeof(inventory), "%s%d.\t%s\n", inventory, i + 1, worldInventory[world][i][slotName]);
     }
 
@@ -23,20 +23,20 @@ Dialog:worldInventoryIndex(playerid, response, listitem, inputtext[])
     if (!response) return true;
 
     setPlayerSelectedItem(playerid, getPlayerSelectedPage(playerid) * WORLD_INVENTORY_PER_PAGE + listitem);
-    
+
     worldInventoryShowItem(playerid, getPlayerSelectedItem(playerid));
     return true;
 }
 
 /**
  * Показать подробную информацию об предмете
- * 
+ *
  */
 stock worldInventoryShowItem(playerid, item)
 {
     if (item < 0 || item > WORLD_INVENTORY_MAX_ITEMS) return false;
 
-    new 
+    new
         world = GetPlayerVirtualWorld(playerid),
         str[256];
 
@@ -68,10 +68,10 @@ Dialog:worldInventoryShowItem(playerid, response, listitem, inputtext[])
     {
         case 0: worldInventorySetItemName(playerid);
         case 1: worldInventorySetDescription(playerid);
-        // case 2: worldInventorySetModel(playerid);
-        // case 3: worldInventorySetQuantity(playerid);
-        // case 4: worldInentorySetBlock(playerid);
-        // case 5: worldInventoryToggleStatus(playerid);
+        // case 2: worldInventorySetModel(playerid);  Данной функции нет. Надо создать и описать. Пример можно взять из worldInventorySetItemName
+        // case 3: worldInventorySetQuantity(playerid); Данной функции нет. Надо создать и описать. Пример можно взять из worldInventorySetItemName
+        // case 4: worldInentorySetBlock(playerid); Данной функции нет. Надо создать и описать. Пример можно взять из worldInventorySetItemName
+        // case 5: worldInventoryToggleStatus(playerid); Данной функции нет. Надо создать и описать. Пример можно взять из worldInventorySetItemName
         case 5: worldInventoryDestroyItem(playerid);
         default: worldInventoryShowItem(playerid, getPlayerSelectedItem(playerid));
     }
@@ -81,12 +81,12 @@ Dialog:worldInventoryShowItem(playerid, response, listitem, inputtext[])
 
 stock worldInventorySetItemName(playerid, error[] = "")
 {
-    new 
+    new
         world = GetPlayerVirtualWorld(playerid),
         str[256];
 
     format(str, sizeof(str), HEX_WHITE"Укажите отображаемое название предмета от 1 до %d символов.\n\n%s\n\n"HEX_METRONIC_RED"%s", 
-        WORLD_INVENTORY_SLOT_NAME, 
+        WORLD_INVENTORY_SLOT_NAME,
         worldInventory[world][ getPlayerSelectedItem(playerid) ][slotName],
         error
     );
@@ -113,12 +113,12 @@ Dialog:worldInventorySetName(playerid, response, listitem, inputtext[])
 
 stock worldInventorySetDescription(playerid, error[] = "")
 {
-    new 
+    new
         world = GetPlayerVirtualWorld(playerid),
         str[1024];
 
     format(str, sizeof(str), HEX_WHITE"Укажите описание предмета от 1 до %d символов.\n\n%s\n\n"HEX_METRONIC_RED"%s", 
-        WORLD_INVENTORY_SLOT_DESCRIPTION, 
+        WORLD_INVENTORY_SLOT_DESCRIPTION,
         worldInventory[world][ getPlayerSelectedItem(playerid) ][slotDescription],
         error
     );
@@ -145,28 +145,33 @@ Dialog:worldInventorySetDesc(playerid, response, listitem, inputtext[])
 
 /**
  * Уничтожение и очистка массива предмета
- * 
+ *
  */
 stock worldInventoryDestroyItem(playerid)
 {
+    // Просто очищает массив = EOS
     return true;
 }
 
 /**
  * Вернуть список всех предметов в инвентаре игрока
- * 
+ *
  */
 stock playerInvitoryIndex(playerid, page=0)
 {
+    // Достаточно базовой информации. Название предмета / количество. Кол. выводить если декремент у мира не != 0
+    // Так же нужна проверка на статус. Если статус 0. То предмет как-бы есть в инвентаре, но не отображает его. И считает слот пустым.
+    // Т.е. предмет как-бы под удаление, но пока ещё лежит на месте. 
     return true;
 }
 
 /**
  * Показать подробную информацию о предмете игрока
- * 
+ *
  */
 stock playerInvitoryShowItem(playerid)
 {
+    // Название описание и 2 кнопки Y / X
     return true;
 }
 
@@ -176,15 +181,17 @@ stock playerInvitoryShowItem(playerid)
  */
 stock playerInvitoryUseItem(playerid)
 {
+    // Пока ещё точно не придумал. Но думаю пусть будет обычный вызов КБ. Может что-то лучше придумаем ещё.
     return true;
 }
 
 /**
  * Игрок выкидывает предмет
- * 
+ *
  */
 stock playerInvitoryDropItem(playerid)
 {
+    // Предмет должен быть выкинут на землю. Это лучше не трогайте вообще. Я сам опишу логику. Я собираюсь работать с массивами стримера. 
     return true;
 }
 
@@ -194,5 +201,6 @@ stock playerInvitoryDropItem(playerid)
  */
 stock playerInvitoryDestroyItem(playerid)
 {
+    // Просто очищает слот. Кстати по возможности надо добавить в настройку "ON/OFF" удаляемый предмет или нет. Ибо мб хост не хочет чтобы его удаляли.
     return true;
 }
