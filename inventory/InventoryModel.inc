@@ -26,22 +26,22 @@ enum playerInventroyEnum
 
 new playerInventory[MAX_PLAYERS][PLAYER_INVENTORY_SLOT_ITEMS][playerInventroyEnum];
 
-function setPlayerPage(playerid, value)
+function setPlayerSelectedPage(playerid, value)
 {
     pData[playerid][pSeeList][99] = value;
 }
 
-function getPlayerPage(playerid)
+function getPlayerSelectedPage(playerid)
 {
     return pData[playerid][pSeeList][99];
 }
 
-function setPlayerItem(playerid, value)
+function setPlayerSelectedItem(playerid, value)
 {
     pData[playerid][pSeeList][98] = value;
 }
 
-function getPlayerItem(playerid)
+function getPlayerSelectedItem(playerid)
 {
     return pData[playerid][pSeeList][98];
 }

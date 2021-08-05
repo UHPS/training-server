@@ -13,7 +13,7 @@ stock worldInventoryIndex(playerid, world, page=0)
         format(inventory, sizeof(inventory), "%s%d.\t%s\n", inventory, i + 1, worldInventory[world][i][slotName]);
     }
 
-    setPlayerPage(playerid, page);
+    setPlayerSelectedPage(playerid, page);
 
     return Dialog_Show(playerid, worldInventoryIndex, DIALOG_STYLE_TABLIST, " ", inventory, "Y", "X");
 }
@@ -22,9 +22,9 @@ Dialog:worldInventoryIndex(playerid, response, listitem, inputtext[])
 {
     if (!response) return true;
 
-    setPlayerItem(playerid, getPlayerPage(playerid) * WORLD_INVENTORY_PER_PAGE + listitem);
+    setPlayerSelectedItem(playerid, getPlayerSelectedPage(playerid) * WORLD_INVENTORY_PER_PAGE + listitem);
     
-    worldInventoryShowItem(playerid, getPlayerItem(playerid));
+    worldInventoryShowItem(playerid, getPlayerSelectedItem(playerid));
     return true;
 }
 
@@ -62,7 +62,7 @@ stock worldInventoryShowItem(playerid, item)
 
 Dialog:worldInventoryShowItem(playerid, response, listitem, inputtext[])
 {
-    if (!response) return worldInventoryIndex(playerid, getPlayerPage(playerid));
+    if (!response) return worldInventoryIndex(playerid, getPlayerSelectedPage(playerid));
 
     switch (listitem)
     {
@@ -73,7 +73,7 @@ Dialog:worldInventoryShowItem(playerid, response, listitem, inputtext[])
         // case 4: worldInentorySetBlock(playerid);
         // case 5: worldInventoryToggleStatus(playerid);
         case 5: worldInventoryDestroyItem(playerid);
-        default: worldInventoryShowItem(playerid, getPlayerItem(playerid));
+        default: worldInventoryShowItem(playerid, getPlayerSelectedItem(playerid));
     }
 
     return true;
@@ -87,7 +87,7 @@ stock worldInventorySetItemName(playerid, error[] = "")
 
     format(str, sizeof(str), HEX_WHITE"Укажите отображаемое название предмета от 1 до %d символов.\n\n%s\n\n"HEX_METRONIC_RED"%s", 
         WORLD_INVENTORY_SLOT_NAME, 
-        worldInventory[world][ getPlayerItem(playerid) ][slotName],
+        worldInventory[world][ getPlayerSelectedItem(playerid) ][slotName],
         error
     );
 
@@ -105,10 +105,10 @@ Dialog:worldInventorySetName(playerid, response, listitem, inputtext[])
             return worldInventorySetItemName(playerid, "* Неверно указана длина имени!");
         }
 
-        format(worldInventory[world][ getPlayerItem(playerid) ][slotName], WORLD_INVENTORY_SLOT_NAME, "%s", inputtext); 
+        format(worldInventory[world][ getPlayerSelectedItem(playerid) ][slotName], WORLD_INVENTORY_SLOT_NAME, "%s", inputtext); 
     }
 
-    return worldInventoryShowItem(playerid, getPlayerItem(playerid));
+    return worldInventoryShowItem(playerid, getPlayerSelectedItem(playerid));
 }
 
 stock worldInventorySetDescription(playerid, error[] = "")
@@ -119,7 +119,7 @@ stock worldInventorySetDescription(playerid, error[] = "")
 
     format(str, sizeof(str), HEX_WHITE"Укажите описание предмета от 1 до %d символов.\n\n%s\n\n"HEX_METRONIC_RED"%s", 
         WORLD_INVENTORY_SLOT_DESCRIPTION, 
-        worldInventory[world][ getPlayerItem(playerid) ][slotDescription],
+        worldInventory[world][ getPlayerSelectedItem(playerid) ][slotDescription],
         error
     );
 
@@ -137,10 +137,10 @@ Dialog:worldInventorySetDesc(playerid, response, listitem, inputtext[])
             return worldInventorySetDescription(playerid, "* Неверно указана длина названия!");
         }
 
-        format(worldInventory[world][ getPlayerItem(playerid) ][slotDescription], WORLD_INVENTORY_SLOT_DESCRIPTION, "%s", inputtext); 
+        format(worldInventory[world][ getPlayerSelectedItem(playerid) ][slotDescription], WORLD_INVENTORY_SLOT_DESCRIPTION, "%s", inputtext); 
     }
 
-    return worldInventoryShowItem(playerid, getPlayerItem(playerid));
+    return worldInventoryShowItem(playerid, getPlayerSelectedItem(playerid));
 }
 
 /**
