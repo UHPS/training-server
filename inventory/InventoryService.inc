@@ -192,6 +192,27 @@ stock playerInvitoryUseItem(playerid)
 stock playerInvitoryDropItem(playerid)
 {
     // Предмет должен быть выкинут на землю. Это лучше не трогайте вообще. Я сам опишу логику. Я собираюсь работать с массивами стримера. 
+    new
+        objectid,
+        world = GetPlayerVirtualWorld(playerid),
+        Float: x,
+        Float: y,
+        Float: z,
+        Float: rz;
+
+    if (!isValidWorld(world)) return true;
+
+    if (!isValidSelectedItemModel(playerid)) return SendServerMessage(playerid, "Невозможно выкинуть данный предмет.");
+
+    GetPlayerPos(playerid, x, y, z);
+    GetPlayerFacingAngle(playerid, rz);
+
+    x += 2 * floatsin(-rz, degrees);
+	y += 2 * floatcos(-rz, degrees);
+
+    objectid = CreateDynamicObject(getSelectedItemModel(playerid), x, y, z, 0.0, 0.0, 0.0, world, GetPlayerInterior(playerid));
+    Streamer_SetIntData(STREAMER_TYPE_OBJECT, objectid, STREAMER_INVENTORY_ID, getPlayerSelectedItem(playerid));
+
     return true;
 }
 
@@ -203,4 +224,50 @@ stock playerInvitoryDestroyItem(playerid)
 {
     // Просто очищает слот. Кстати по возможности надо добавить в настройку "ON/OFF" удаляемый предмет или нет. Ибо мб хост не хочет чтобы его удаляли.
     return true;
+}
+
+
+stock playerInventoryPickupItem(playerid)
+{
+    new 
+        objectid = getInventoryNearItem(playerid),
+        model = Streamer_GetIntData(STREAMER_TYPE_OBJECT, objectid, STREAMER_INVENTORY_ID);
+
+    // TODO: Добавить проверку на валидность предмета. Его может не быть
+    
+    DestroyDynamicObject(objectid);
+
+    // TODO: А сюда доабвить выдачу предмета
+}
+
+function getInventoryNearItem(playerid)
+{
+    new
+        Float: x,
+        Float: y,
+        Float: z,
+        world = GetPlayerVirtualWorld(playerid),
+        objectid,
+        Float: nearlyDistance,
+        items[100];
+
+    GetPlayerPos(playerid, x, y, z);
+
+    Streamer_GetNearbyItems(x, y, z, STREAMER_TYPE_OBJECT, items[], sizeof(items), 5.0, world);
+
+    objectid = items[0];
+    Streamer_GetDistanceToItem(x, y, z, STREAMER_TYPE_OBJECT, objectid, nearlyDistance, 2)
+
+    for (new i = 1; i < sizeof(items); i++)
+    {
+        new Float: distance;
+        if (!Streamer_GetDistanceToItem(x, y, z, STREAMER_TYPE_OBJECT, items[i], distance, 2)) continue;
+
+        if (nearlyDistance < distance) continue;
+
+        objectid = items[i];
+        nearlyDistance = distance;
+    }
+
+    return objectid;
 }
