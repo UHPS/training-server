@@ -1179,3 +1179,83 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+
+else if (!strcmp(str, "warn", true)) {
+	sscanf(arg, "d", userid);
+
+	if (!IsPlayerOnline(userid)) {
+		userid = playerid;
+	}
+
+	// FIXME: изменить на тернарный оператор.
+	// P.S. я не помню как они в пувне пишутся.
+	if (pData[userid][pBanned]) {
+		valstr(str, 1);
+	}
+
+	else {
+		valstr(str, 0);
+	}
+}
+
+else if (!strcmp(str, "skill", true)) {
+	new skill_id;
+
+	sscanf(arg, "d", skill_id);
+
+	if (skill_id < 0 || skill_id > 11) {
+		valstr(str, -1);
+	}
+
+	else {
+		valstr(str, pData[userid][pSkills][skill_id]);
+	}
+}
+
+else if (!strcmp(str, "taser", true) || !strcmp(str, "tazer", true)) {
+	sscanf(arg, "d", userid);
+
+	if (!IsPlayerOnline(userid)) {
+		userid = playerid;
+	}
+
+	// FIXME: изменить на тернарный оператор.
+	// P.S. я не помню как они в пувне пишутся.
+	if (pData[userid][pTazer]) {
+		valstr(str, 1);
+	}
+
+	else {
+		valstr(str, 0)
+	}
+}
+
+else if (!strcmp(str, "tased", true) || !strcmp(str, "tazed", true)) {
+	sscanf(arg, "d", userid);
+
+	if (!IsPlayerOnline(userid)) {
+		userid = playerid;
+	}
+
+	valstr(str, pData[userid][pStunned]);
+}
+
+else if (!strcmp(str, "regdate", true)) {
+	sscanf(arg, "d", userid);
+
+	if (!IsPlayerOnline(userid)) {
+		userid = playerid;
+	}
+
+	valstr(str, pData[userid][pRegdate])
+}
+
+else if (!strcmp(str, "spectate", true)) {
+	sscanf(arg, "d", userid);
+
+	if (!IsPlayerOnline(userid)) {
+		userid = playerid;
+	}
+
+	valstr(str, pData[userid][pSpectator])
+}
