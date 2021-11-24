@@ -20,6 +20,23 @@ if(!strcmp(str, "random", true))
 	else
 		continue;
 }
+else if(!strcmp(str, "randomEx", true))
+{
+	if(sscanf(arg, "p<,>dd", arg[0], arg[1]))
+		continue;
+		
+	new randomVal = random(1);
+	
+	if(randomVal == 0)
+	{
+		valstr(str, arg[0]);
+	}
+	else
+	{
+		valstr(str, arg[1]);
+	}
+	
+}
 else if(!strcmp(str, "array", true))
 {
 	if(sscanf(arg, "d", arg[0]))
