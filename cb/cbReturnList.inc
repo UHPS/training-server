@@ -1179,3 +1179,44 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "nearaction", true))
+{
+	sscanf(arg, "d", userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+		
+	new 	dist = 9999,
+		tdist;
+	new	Float: X,
+		Float: Y,
+		Float: Z,
+		Float: ax,
+		Float: ay,
+		Float: az;
+	GetPlayerPos(userid,X,Y,Z);
+	new 	nearact;
+	
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+	for(new m; m < tempWorld[world][vActionCount]; m++)
+	{
+		if(!checkValidAction(m, world))
+			continue;
+		
+		Streamer_GetFloatData(STREAMER_TYPE_3D_TEXT_LABEL,
+		Text3D:worldAction[world][m][vAction], E_STREAMER_X, ax);
+		Streamer_GetFloatData(STREAMER_TYPE_3D_TEXT_LABEL,
+		Text3D:worldAction[world][m][vAction], E_STREAMER_Y, ay);
+		Streamer_GetFloatData(STREAMER_TYPE_3D_TEXT_LABEL,
+		Text3D:worldAction[world][m][vAction], E_STREAMER_Z, az);
+		tdist = GetPlayerDistanceFromPoint(userid, ax, ay, az);
+		
+		if(tdist <= dist)
+		{
+			nearact = m;
+			dist = tdist;
+		}
+	}
+	format(str, sizeof(str), "%d", nearact);
+}
+
