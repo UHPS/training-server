@@ -4056,6 +4056,23 @@ CB:SpectateDisable(playerid, blockid, world, params[])
 	return true;
 }
 
+CB:GiveJetpack(playerid, blockid, world, params[])
+{
+	ReturnCommand(playerid, params, world);
+	
+	
+	if(cmBlock[world][blockid][cbMode])
+	{
+		if(world != GetPlayerVirutalWorld(i))
+			continue;
+		
+		if(!cbCompareMode(i, blockid))
+				continue;
+		SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USEJETPACK);
+	}
+}
+
+
 /*
 CB:donate(playerid, params[])
 {
