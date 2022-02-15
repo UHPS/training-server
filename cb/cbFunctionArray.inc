@@ -163,6 +163,6 @@ new const cmBlockList[][cmBlockList_enum] = {
 	{1, "SpectateVehicle", 		    "Наблюдать за транспортом",   "Наблюдать за транспортом: <ID игрока> <ID транспорта>"}, //114
 	{0, "SpectateDisable", 		    "Отключить режим наблюдения",   "Отключает режим наблюдения."} //115
 	{1, "Attach3DLabelToPlayer",	"Прицепить action к игроку",	"Прицепить action к игроку: < Player ID > < ID action > < X > < Y > < Z >"}, //116
-	{1, "Attach3DLabelToVehicle",	"Прицепить action к транспорту",	"Прицепить action к транспорту: < Vehicle ID > < ID action > < X > < Y > < Z >"}
+	{1, "Attach3DLabelToVehicle",	"Прицепить action к транспорту",	"Прицепить action к транспорту: < Vehicle ID > < ID action > < X > < Y > < Z >"} //117
 	
 };
