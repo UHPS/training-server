@@ -1179,3 +1179,17 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "trailer", true))
+{
+	new trailer, vehid;
+	
+	sscanf(arg, "d", userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+		
+	if(GetPlayerVehicleID(userid) > 0)
+		vehid = GetPlayerVehicleID(userid);
+		
+	trailer = GetVehicleTrailer(vehid);
+	format(str, sizeof(str), "d", trailer);
+}
