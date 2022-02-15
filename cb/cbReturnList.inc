@@ -1188,8 +1188,9 @@ else if(!strcmp(str, "trailer", true))
 		userid = playerid;
 		
 	if(GetPlayerVehicleID(userid) > 0)
+	{
 		vehid = GetPlayerVehicleID(userid);
-		
-	trailer = GetVehicleTrailer(vehid);
+		trailer = GetVehicleTrailer(vehid);
+	}
 	format(str, sizeof(str), "d", trailer);
 }
