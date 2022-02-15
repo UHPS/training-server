@@ -98,7 +98,7 @@ TextDrawSetSelectable(TextdrawBlackScreen, 0);
 
 CMD:black(playerid,params[])
 {
-	new retstr0[256];
+	new retstr0[3];
 	if(sscanf(params,"s",retstr0)) return SCM(playerid,0x88888888,"[SYNTAX]:{FFFFFF} /black ON/OFF.");
 	if(strfind(params,"on",true) != -1)
 	{
