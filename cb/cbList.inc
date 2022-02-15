@@ -4065,6 +4065,9 @@ CB:RenameTeam(playerid, params[])
 	
 	if(teamid < 1 || teamid > 20)
 		return CBWrongData(playerid, blockid, world);
+		
+	if(strlen(newname) > 36)
+		return strdel(newname,36,365);
 	
 	format(worldTeam[world][teamid][tName], sizeof(worldTeam[world][teamid][tName]), "%s", newname);
 	return true;
