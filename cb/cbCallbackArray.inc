@@ -77,6 +77,7 @@ new const cmCallBack[][] = {
 /*
 Вставить в начало мода:
 
+#define SendClientMessage SCM
 new Text:TextdrawBlackScreen;
 
 TextdrawBlackScreen = TextDrawCreate(-187.000000, -4.000000, "5");
