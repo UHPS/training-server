@@ -26,6 +26,7 @@ new const
 	cbBlockSort_5[] = {33,34,35,36,37,38}, // Чекпоинты
 	cbBlockSort_6[] = {41,48,50,54,55,65,66,67,68,71,109,110,111,72,80,81,74,75,76,95,96,101,102}, // Объекты мира
 	cbBlockSort_7[] = {86,87,88,89,90,91}; // Актеры
+	cbBlockSort_8[] = {118,119,120,121); // Взаимодействие с гангзонами (иды с учетом кода по причеплению акшионов)
 
 new const cmBlockList[][cmBlockList_enum] = {
 	{0, "N/A", 					"N/A",							"N/A"},
@@ -162,4 +163,9 @@ new const cmBlockList[][cmBlockList_enum] = {
 	{1, "SpectatePlayer", 		    "Наблюдать за игроком",   "Наблюдать за игроком: <ID игрока> <ID за кем наблюдать>"}, //113
 	{1, "SpectateVehicle", 		    "Наблюдать за транспортом",   "Наблюдать за транспортом: <ID игрока> <ID транспорта>"}, //114
 	{0, "SpectateDisable", 		    "Отключить режим наблюдения",   "Отключает режим наблюдения."} //115
+	
+	{1, "CreateGangZone",		"Создать GangZone",	"Создать GangZone: < slot (1 - 99) > < color > < min X > < min Y > < max X > < max Y >"} // 118
+	{1, "DeleteGangZone",		"Удалить GangZone",	"Удалить GangZone: < slot (1 - 99) >"} // 119
+	{1, "StartFlashGangZone",	"Включить мигание GangZone",	"Параметры: < slot (1 - 99) >"} // 120
+	{1, "StopFlashGangZone",	"Выключить мигание GangZone",	"Параметры: < slot (1 - 99) >"} // 121
 };
