@@ -4100,7 +4100,24 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		return CBWrongData(playerid, blockid, world);
 	if(slotid <= 0 || slotid > 99)
 		return CBWrongData(playerid, blockid, world);
-	
+	if(GangZoneInfo[world][slotid][zoneid] >= 1)
+	{
+		for(new i; i < MAX_PLAYERS; i++)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+					continue;
+			GangZoneHideForPlayer(i,GangZoneInfo[world][slotid][zoneid]);
+		}
+		GangZoneDestroy(GangZoneInfo[world][slotid][zoneid]);
+
+		GangZoneInfo[world][slotid][zoneid] = 0;
+		GangZoneInfo[world][slotid][slot] = 0;
+		GangZoneInfo[world][slotid][gminx] = 0;
+		GangZoneInfo[world][slotid][gminy] = 0;
+		GangZoneInfo[world][slotid][gmaxx] = 0;
+		GangZoneInfo[world][slotid][gmaxy] = 0;
+		GangZoneInfo[world][slotid][zonecolor] = EOS;
+	}
 	GangZoneInfo[world][slotid][zoneid] = PlayerGangZoneCreate(playerid, Float:minx, Float:miny, Float:maxx, Float:maxy);
 	GangZoneInfo[world][slotid][slot] = slotid;
 	GangZoneInfo[world][slotid][gminx] = minx;
