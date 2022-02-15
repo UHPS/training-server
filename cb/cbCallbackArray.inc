@@ -108,7 +108,7 @@ CMD:black(playerid,params[])
 	if(strfind(params,"off",true) != -1)
 	{
 		TextDrawHideForPlayer(playerid,TextdrawBlackScreen);
-		SCM(playerid,COL_SER,"[SERVER]: {FFFFFF}Режим черного экрана деактивирован..");
+		SCM(playerid,COL_SER,"[SERVER]: {FFFFFF}Режим черного экрана деактивирован.");
 		
 	}
 	return 1;
