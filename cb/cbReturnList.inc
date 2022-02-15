@@ -1270,7 +1270,8 @@ else if(!strcmp(str, "nearactor", true))
 		if(GetPlayerDistanceFromPoint(plyid,ax,ay,az) <= dist);
 		{
 			actorid = i;
-			dist = GetPlayerDistanceFromPoint(plyid,ax,ay,az);	
+			dist = GetPlayerDistanceFromPoint(plyid,ax,ay,az);
+			i = 0;
 		}
 	}
 	format(str, sizeof(str), "%d", actorid);
