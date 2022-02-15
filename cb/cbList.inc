@@ -4056,6 +4056,62 @@ CB:SpectateDisable(playerid, blockid, world, params[])
 	return true;
 }
 
+CB:Attach3DLabelToPlayer(playerid, blockid, world, params[])
+{
+	ReturnCommand(playerid, params, world);
+	
+	new 	plyid, 
+		actid;
+	new 	float: ax,
+		float: ay,
+		float: az;
+	
+	
+	if(sscanf(params, "ddfff", plyid, actid, ax, ay, az))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(!IsPlayerOnline(plyid))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(world != GetPlayerVirtualWorld(plyid))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(!checkValidAction(actid, world))
+		return CBWrongData(playerid, blockid, world);
+	
+	new realactid = Text3D:worldAction[world][actid][vAction];
+	Attach3DTextLabelToPlayer(realactid, plyid, ax, ay, az);
+	return true;
+}
+
+CB:Attach3DLabelToVehicle(playerid, blockid, world, params[])
+{
+	ReturnCommand(playerid, params, world);
+	
+	new 	vehid, 
+		actid;
+	new 	float: ax,
+		float: ay,
+		float: az;
+	
+	
+	if(sscanf(params, "ddfff", vehid, actid, ax, ay, az))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(vehid == 0)
+		GetPlayerVehicleID(playerid);
+	
+	if(vehid < 1 || vehid > MAX_VEHICLES)
+			return CBWrongData(playerid, blockid, world);
+		
+	if(!checkValidAction(actid, world))
+		return CBWrongData(playerid, blockid, world);
+	
+	new realactid = Text3D:worldAction[world][actid][vAction];
+	Attach3DTextLabelToVehicle(realactid, vehid, ax, ay, az);
+	return true;
+}
+
 /*
 CB:donate(playerid, params[])
 {
