@@ -4118,7 +4118,7 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		GangZoneInfo[world][slotid][gmaxy] = 0;
 		GangZoneInfo[world][slotid][zonecolor] = EOS;
 	}
-	GangZoneInfo[world][slotid][zoneid] = PlayerGangZoneCreate(playerid, Float:minx, Float:miny, Float:maxx, Float:maxy);
+	GangZoneInfo[world][slotid][zoneid] = GangZoneCreate(Float:minx, Float:miny, Float:maxx, Float:maxy);
 	GangZoneInfo[world][slotid][slot] = slotid;
 	GangZoneInfo[world][slotid][gminx] = minx;
 	GangZoneInfo[world][slotid][gminy] = miny;
