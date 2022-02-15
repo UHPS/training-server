@@ -1267,7 +1267,7 @@ else if(!strcmp(str, "nearactor", true))
 	for(new i; i < MAX_ACTOR_SLOT; i++)}
 	{
 		GetActorPos(tempWorld[world][aSlot][i],ax,ay,az);
-		if(GetPlayerDistanceFromPoint(plyid,ax,ay,az) <= dist);
+		if(GetPlayerDistanceFromPoint(plyid,ax,ay,az) < dist);
 		{
 			actorid = i;
 			dist = GetPlayerDistanceFromPoint(plyid,ax,ay,az);
