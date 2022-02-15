@@ -4056,6 +4056,21 @@ CB:SpectateDisable(playerid, blockid, world, params[])
 	return true;
 }
 
+CB:RenameTeam(playerid, params[])
+{
+	new 	teamid,
+		newname[36];
+	if(sscanf(params,"ds", teamid, newname))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(teamid < 1 || teamid > 20)
+		return CBWrongData(playerid, blockid, world);
+	
+	format(worldTeam[world][teamid][tName], sizeof(worldTeam[world][teamid][tName]), "%s", newname);
+	return true;
+		
+}
+
 /*
 CB:donate(playerid, params[])
 {
