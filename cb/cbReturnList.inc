@@ -1211,7 +1211,7 @@ else if(!strcmp(str, "nearaction", true))
 		Text3D:worldAction[world][m][vAction], E_STREAMER_Z, az);
 		tdist = GetPlayerDistanceFromPoint(userid, ax, ay, az);
 		
-		if(tdist <= dist)
+		if(tdist < dist)
 		{
 			nearact = m;
 			dist = tdist;
