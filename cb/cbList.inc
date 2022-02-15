@@ -4073,21 +4073,131 @@ CB:donate(playerid, params[])
 }
 */
 
-/*
+/* 
+enum e_GANGZONE_INFO
+{
+	zoneid,
+	slot,
+	gminx,
+	gminy,
+	gmaxx,
+	gmaxy,
+	zonecolor[12];
+}
+new GangZoneInfo[MAX_WORLDS][99][e_GANGZONE_INFO];
 
 CB:CreateGangZone(playerid, blockid, world, params[])
 {
 	new 
 		slotid,
+		gcolor[12],
 		Float:minx,
 		Float:miny,
 		Float:maxx,
 		Float:maxy;
 	
-	if(sscanf(params, "ddffffff", slotid, modelid, x, y, z, rx, ry, rz))
+	if(sscanf(params, "dsffff", slotid, gcolor, minx, miny, maxx, maxy))
+		return CBWrongData(playerid, blockid, world);
+	if(slotid <= 0 || slotid > 99)
 		return CBWrongData(playerid, blockid, world);
 	
-	PlayerGangZoneCreate(playerid, Float:minx, Float:miny, Float:maxx, Float:maxy);
+	GangZoneInfo[world][slotid][zoneid] = PlayerGangZoneCreate(playerid, Float:minx, Float:miny, Float:maxx, Float:maxy);
+	GangZoneInfo[world][slotid][slot] = slotid;
+	GangZoneInfo[world][slotid][gminx] = minx;
+	GangZoneInfo[world][slotid][gminy] = miny;
+	GangZoneInfo[world][slotid][gmaxx] = maxx;
+	GangZoneInfo[world][slotid][gmaxy] = maxy;
+	GangZoneInfo[world][slotid][zonecolor] = gcolor;
+	for(new i; i < MAX_PLAYERS; i++)
+	{
+		if(world != GetPlayerVirtualWorld(i))
+				continue;
+		GangZoneShowForPlayer(i,GangZoneInfo[world][slotid][zoneid],gcolor);
+	}
 	return true;
 }
+
+CB:DeleteGangZone(playerid, blockid, world, params[])
+{
+	new slotid;
+	if(sscanf(params,"d",slotid))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(slotid <= 0 || slotid > 99)
+		return CBWrongData(playerid, blockid, world);
+	
+	if(GangZoneInfo[world][slotid][zoneid] == 0)
+		return CBWrongData(playerid, blockid, world);
+		
+	for(new i; i < MAX_PLAYERS; i++)
+	{
+		if(world != GetPlayerVirtualWorld(i))
+				continue;
+		GangZoneHideForPlayer(i,GangZoneInfo[world][slotid][zoneid]);
+	}
+	GangZoneDestroy(GangZoneInfo[world][slotid][zoneid]);
+	
+	GangZoneInfo[world][slotid][zoneid] = 0;
+	GangZoneInfo[world][slotid][slot] = 0;
+	GangZoneInfo[world][slotid][gminx] = 0;
+	GangZoneInfo[world][slotid][gminy] = 0;
+	GangZoneInfo[world][slotid][gmaxx] = 0;
+	GangZoneInfo[world][slotid][gmaxy] = 0;
+	GangZoneInfo[world][slotid][zonecolor] = EOS;
+	
+	return true;
+}
+
+CB:StartFlashGangZone(playerid, blockid, world, params[])
+{
+	new slotid;
+	
+	if(sscanf(params,"d",slotid))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(slotid <= 0 || slotid > 99)
+		return CBWrongData(playerid, blockid, world);
+	
+	if(GangZoneInfo[world][slotid][zoneid] == 0)
+		return CBWrongData(playerid, blockid, world);
+	
+	for(new i; i < MAX_PLAYERS; i++)
+	{
+		if(world != GetPlayerVirtualWorld(i))
+				continue;
+		GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], GangZoneInfo[world][slotid][zonecolor]);
+	}
+	return true;
+}
+
+CB:StopFlashGangZone(playerid, blockid, world, params[])
+{
+	new slotid;
+	
+	if(sscanf(params,"d",slotid))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(slotid <= 0 || slotid > 99)
+		return CBWrongData(playerid, blockid, world);
+	
+	if(GangZoneInfo[world][slotid][zoneid] == 0)
+		return CBWrongData(playerid, blockid, world);
+	
+	for(new i; i < MAX_PLAYERS; i++)
+	{
+		if(world != GetPlayerVirtualWorld(i))
+				continue;
+		GangZoneStopFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid]);
+	}
+	return true;
+}
+
+/*
+При выходе из мира:
+
+for(new i; i < 99; i++)
+{
+	GangZoneHideForPlayer(playerid, i);
+}
+
 */
