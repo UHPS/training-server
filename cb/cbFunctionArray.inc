@@ -166,6 +166,6 @@ new const cmBlockList[][cmBlockList_enum] = {
 	
 	{1, "CreateGangZone",		"Создать GangZone",	"Создать GangZone: < slot (1 - 99) > < color > < min X > < min Y > < max X > < max Y >"} // 118
 	{1, "DeleteGangZone",		"Удалить GangZone",	"Удалить GangZone: < slot (1 - 99) >"} // 119
-	{1, "StartFlashGangZone",	"Включить мигание GangZone",	"Параметры: < slot (1 - 99) >"} // 120
+	{1, "StartFlashGangZone",	"Включить мигание GangZone",	"Параметры: < slot (1 - 99) > < color >"} // 120
 	{1, "StopFlashGangZone",	"Выключить мигание GangZone",	"Параметры: < slot (1 - 99) >"} // 121
 };
