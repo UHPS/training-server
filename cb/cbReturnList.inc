@@ -1179,3 +1179,122 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "actorxyz", true))
+{
+	new 	actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "d", actorid);
+	
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		return true;
+	
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		return true;
+	
+	GetActorPos(tempWorld[world][aSlot][actorid],ax,ay,az);
+	
+	format(str, sizeof(str), "%.2f %.2f %.2f", ax, ay, az);
+}
+else if(!strcmp(str, "actorx", true))
+{
+	new 	actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "d", actorid);
+	
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		return true;
+	
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		return true;
+	
+	GetActorPos(tempWorld[world][aSlot][actorid],ax,ay,az);
+	
+	format(str, sizeof(str), "%.2f", ax);
+}
+else if(!strcmp(str, "actory", true))
+{
+	new 	actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "d", actorid);
+	
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		return true;
+	
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		return true;
+	
+	GetActorPos(tempWorld[world][aSlot][actorid],ax,ay,az);
+	
+	format(str, sizeof(str), "%.2f", ay);
+}
+else if(!strcmp(str, "actorz", true))
+{
+	new 	actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "d", actorid);
+	
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		return true;
+	
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		return true;
+	
+	GetActorPos(tempWorld[world][aSlot][actorid],ax,ay,az);
+	
+	format(str, sizeof(str), "%.2f", az);
+}
+else if(!strcmp(str, "nearactor", true))
+{
+	new 	plyid,
+		dist = 9999,
+		actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "d", plyid);
+	
+	if(plyid == 0 || !IsPlayerOnline(plyid))
+		plyid = playerid;
+	
+	for(new i; i < MAX_ACTOR_SLOT; i++)}
+	{
+		GetActorPos(tempWorld[world][aSlot][i],ax,ay,az);
+		if(GetPlayerDistanceFromPoint(plyid,ax,ay,az) <= dist);
+		{
+			actorid = i;
+			dist = GetPlayerDistanceFromPoint(plyid,ax,ay,az);	
+		}
+	}
+	format(str, sizeof(str), "%d", actorid);
+}
+else if(!strcmp(str, "GetDistActor", true))
+{
+	new 	plyid,
+		dist,
+		actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "dD(-1)", actorid, plyid);
+	
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		return true;
+	
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		return true;
+	
+	if(IsPlayerOnline(plyid))
+		playerid = plyid;
+		
+	GetActorPos(tempWorld[world][aSlot][actorid],ax,ay,az);
+	dist = GetPlayerDistanceFromPoint(playerid,ax,ay,az);
+	format(str, sizeof(str), "%d", dist);
+}
