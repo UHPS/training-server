@@ -4167,9 +4167,10 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 
 CB:StartFlashGangZone(playerid, blockid, world, params[])
 {
-	new slotid;
+	new 	slotid;
+		gcolor;
 	
-	if(sscanf(params,"d",slotid))
+	if(sscanf(params,"ds",slotid,gcolor))
 		return CBWrongData(playerid, blockid, world);
 	
 	if(slotid <= 0 || slotid > 99)
@@ -4182,14 +4183,14 @@ CB:StartFlashGangZone(playerid, blockid, world, params[])
 	{
 		if(world != GetPlayerVirtualWorld(i))
 				continue;
-		GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], GangZoneInfo[world][slotid][zonecolor]);
+		GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], gcolor);
 	}
 	return true;
 }
 
 CB:StopFlashGangZone(playerid, blockid, world, params[])
 {
-	new slotid;
+	new 	slotid;
 	
 	if(sscanf(params,"d",slotid))
 		return CBWrongData(playerid, blockid, world);
