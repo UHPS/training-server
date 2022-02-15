@@ -72,3 +72,46 @@ new const cmCallBack[][] = {
 	{"Метка на карте"},
 	{"Выбор игрока в TAB"}
 };
+
+
+/*
+Вставить в начало мода:
+
+#define SendClientMessage SCM
+new Text:TextdrawBlackScreen;
+
+TextdrawBlackScreen = TextDrawCreate(-187.000000, -4.000000, "5");
+TextDrawAlignment(TextdrawBlackScreen, 2);
+TextDrawBackgroundColor(TextdrawBlackScreen, 255);
+TextDrawFont(TextdrawBlackScreen, 5);
+TextDrawLetterSize(TextdrawBlackScreen, 0.500000, 1.000000);
+TextDrawColor(TextdrawBlackScreen, -1);
+TextDrawSetOutline(TextdrawBlackScreen, 0);
+TextDrawSetProportional(TextdrawBlackScreen, 0);
+TextDrawSetShadow(TextdrawBlackScreen, 1);
+TextDrawSetPreviewModel(TextdrawBlackScreen, 5);
+TextDrawSetPreviewRot(TextdrawBlackScreen, -16.000000, 0.000000, -55.000000, 55555.000000);
+TextDrawSetSelectable(TextdrawBlackScreen, 0);
+
+
+
+
+CMD:black(playerid,params[])
+{
+	new retstr0[3];
+	if(sscanf(params,"s",retstr0)) return SCM(playerid,0x88888888,"[SYNTAX]:{FFFFFF} /black ON/OFF.");
+	if(strfind(params,"on",true) != -1)
+	{
+	    TextDrawShowForPlayer(playerid,TextdrawBlackScreen);
+	    SCM(playerid,COL_SER,"[SERVER]: {FFFFFF}Режим черного экрана активирован.");
+	}
+	if(strfind(params,"off",true) != -1)
+	{
+		TextDrawHideForPlayer(playerid,TextdrawBlackScreen);
+		SCM(playerid,COL_SER,"[SERVER]: {FFFFFF}Режим черного экрана деактивирован.");
+		
+	}
+	return 1;
+}
+
+\*
