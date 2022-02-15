@@ -4058,6 +4058,7 @@ CB:SpectateDisable(playerid, blockid, world, params[])
 
 CB:RenameTeam(playerid, params[])
 {
+	ReturnCommand(playerid, params, world);
 	new 	teamid,
 		newname[36];
 	if(sscanf(params,"ds", teamid, newname))
