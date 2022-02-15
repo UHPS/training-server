@@ -1215,6 +1215,7 @@ else if(!strcmp(str, "nearaction", true))
 		{
 			nearact = m;
 			dist = tdist;
+			m = 0;
 		}
 	}
 	format(str, sizeof(str), "%d", nearact);
