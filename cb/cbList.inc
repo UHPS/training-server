@@ -4100,7 +4100,7 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		return CBWrongData(playerid, blockid, world);
 	if(slotid <= 0 || slotid > 99)
 		return CBWrongData(playerid, blockid, world);
-	if(GangZoneInfo[world][slotid][zoneid] >= 1)
+	if(GangZoneInfo[world][slotid][slot] >= 1) // Удаление зоны, если она существует
 	{
 		for(new i; i < MAX_PLAYERS; i++)
 		{
