@@ -1179,3 +1179,33 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "strfind", true))
+{
+	new str1[256], str2[256];
+	sscanf(arg, "p<,>ss", str1, str2);
+	
+	
+	if(strfind(str1,str2,true))
+		format(str,sizeof(str),"d",2);
+	else 
+	if(strfind(str1,str2,false))
+		format(str,sizeof(str),"d",1);
+	else
+	format(str,sizeof(str),"d",0);
+}
+else if(!strcmp(str, "strdel", true)) 
+{
+	new str1[256], start, stop;
+	sscanf(arg, "p<,>sdd", str1, start, stop);
+	strdel(str1, start, stop);
+	
+	format(str,sizeof(str),"s",str1);
+}
+else if(!strcmp(str, "strins", true))
+{
+	new str1[256], str2[256], symbol;
+	sscanf(arg, "p<,>ssd", str1, str2, symbol);
+	strins(str1,str2,symbol,sizeof(str1));
+	
+	format(str,sizeof(str),"s",str1);
+}
