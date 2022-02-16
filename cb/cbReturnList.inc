@@ -1239,7 +1239,7 @@ else if(!strcmp(str, "gzonecolor", true))
 {
 	new	idzone,
 		color:gcolor,
-	sscanf(arg, "s", idzone);
+	sscanf(arg, "d", idzone);
 	
 	if(GangZoneInfo[world][idzone][slot] == 0)
 		return true;
