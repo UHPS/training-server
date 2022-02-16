@@ -1179,3 +1179,59 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "sin", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", sin(ret));
+}
+else if(!strcmp(str, "cos", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", cos(ret));
+}
+else if(!strcmp(str, "tg", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", tan(ret));
+}
+else if(!strcmp(str, "ctg", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", tan2(ret));
+}
+else if(!strcmp(str, "asin", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", asin(ret));
+}
+else if(!strcmp(str, "acos", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", acos(ret));
+}
+else if(!strcmp(str, "atg", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", atan(ret));
+}
+else if(!strcmp(str, "actg", true))
+{
+	new ret;
+	sscanf(arg, "d", ret);
+	ret = float(ret);
+	format(str, sizeof(str), "%.2f", atan2(ret));
+}
