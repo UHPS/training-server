@@ -1179,3 +1179,17 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "strfind", true))
+{
+	new str1[256], str2[256];
+	sscanf(arg, "ss", str1, str2);
+	
+	
+	if(strfind(str1,str2,true))
+		format(str,sizeof(str),"d",2);
+	else 
+	if(strfind(str1,str2,false))
+		format(str,sizeof(str),"d",1);
+	else
+	format(str,sizeof(str),"d",0);
+}
