@@ -1179,3 +1179,73 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "gzoneminx", true))
+{
+	new	idzone,
+		float:gx;
+	sscanf(arg, "d", idzone);
+	
+	if(GangZoneInfo[world][idzone][slot] == 0)
+		return true;
+		
+	GangZone[world][idzone][gminx] = gx;
+	
+	format(str,sizeof(str),"%.2f",gx);
+	
+}
+else if(!strcmp(str, "gzoneminy", true))
+{
+	new	idzone,
+		float:gy;
+	sscanf(arg, "d", idzone);
+	
+	if(GangZoneInfo[world][idzone][slot] == 0)
+		return true;
+		
+	GangZone[world][idzone][gminy] = gy;
+	
+	format(str,sizeof(str),"%.2f",gy);
+	
+}
+else if(!strcmp(str, "gzonemaxx", true))
+{
+	new	idzone,
+		float:gx;
+	sscanf(arg, "d", idzone);
+	
+	if(GangZoneInfo[world][idzone][slot] == 0)
+		return true;
+		
+	GangZone[world][idzone][gmaxx] = gx;
+	
+	format(str,sizeof(str),"%.2f",gx);
+	
+}
+else if(!strcmp(str, "gzonemaxy", true))
+{
+	new	idzone,
+		float:gy;
+	sscanf(arg, "d", idzone);
+	
+	if(GangZoneInfo[world][idzone][slot] == 0)
+		return true;
+		
+	GangZone[world][idzone][gmaxx] = gy;
+	
+	format(str,sizeof(str),"%.2f",gy);
+	
+}
+else if(!strcmp(str, "gzonecolor", true))
+{
+	new	idzone,
+		color:gcolor,
+	sscanf(arg, "s", idzone);
+	
+	if(GangZoneInfo[world][idzone][slot] == 0)
+		return true;
+		
+	GangZone[world][idzone][zonecolor] = gcolor;
+	
+	format(str,sizeof(str),"%s",gcolor);
+	
+}
