@@ -22,7 +22,6 @@ if(!strcmp(str, "random", true))
 }
 else if(!strcmp(str, "array", true))
 {
-	
 	if(sscanf(arg, "d", arg[0]))
 		continue;
 		
