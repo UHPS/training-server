@@ -22,6 +22,9 @@ if(!strcmp(str, "random", true))
 }
 else if(!strcmp(str, "array", true))
 {
+	if(!sscanf(arg, "p<,>dd", arg[0], arg[1]))
+		valstr(str, pData[ arg[1] ][cbData][ arg[0] ]));
+		
 	if(sscanf(arg, "d", arg[0]))
 		continue;
 	
