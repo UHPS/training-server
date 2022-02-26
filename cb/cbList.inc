@@ -4106,7 +4106,7 @@ CB:SetTeamChannel(playerid, params[])
 	if(sscanf(params,"dd", teamid, newch))
 		return CBWrongData(playerid, blockid, world);
 		
-	if(newch < 1 || newch > 999)
+	if(newch < 0 || newch > 999)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(teamid < 1 || teamid > 20)
