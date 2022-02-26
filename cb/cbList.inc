@@ -4087,6 +4087,9 @@ CB:SetTeamSkin(playerid, params[])
 	
 	if(teamid < 1 || teamid > 20)
 		return CBWrongData(playerid, blockid, world);
+		
+	if(newskin < 0 || newskin > 311)
+		return CBWrongData(playerid, blockid, world);
 	teamid--;
 	
 	worldTeam[world][teamid][tSkin] = newskin;
@@ -4101,6 +4104,9 @@ CB:SetTeamChannel(playerid, params[])
 		newsch;
 		
 	if(sscanf(params,"dd", teamid, newch))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(newch < 1 || newch > 999)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(teamid < 1 || teamid > 20)
@@ -4121,6 +4127,9 @@ CB:SetTeamHealth(playerid, params[])
 	if(sscanf(params,"dd", teamid, newhp))
 		return CBWrongData(playerid, blockid, world);
 	
+	if(newhp < 1 || newhp > 100)
+		return CBWrongData(playerid, blockid, world);
+	
 	if(teamid < 1 || teamid > 20)
 		return CBWrongData(playerid, blockid, world);
 	teamid--;
@@ -4137,6 +4146,9 @@ CB:SetTeamArmour(playerid, params[])
 		newarm;
 		
 	if(sscanf(params,"dd", teamid, newarm))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(newarm < 1 || newarm > 100)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(teamid < 1 || teamid > 20)
