@@ -4148,7 +4148,7 @@ CB:SetTeamArmour(playerid, params[])
 	if(sscanf(params,"dd", teamid, newarm))
 		return CBWrongData(playerid, blockid, world);
 	
-	if(newarm < 1 || newarm > 100)
+	if(newarm < 0 || newarm > 100)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(teamid < 1 || teamid > 20)
