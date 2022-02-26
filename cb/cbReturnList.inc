@@ -24,11 +24,14 @@ else if(!strcmp(str, "array", true))
 {
 	if(sscanf(arg, "d", arg[0]))
 		continue;
+		
+	if(sscanf(arg, "p<,>dd", arg[0], userid))
+		userid = playerid;
 	
 	if(arg[0] < 0 || arg[0] > 26)
 		continue;
 	
-	valstr(str, pData[playerid][cbData][ arg[0] ]);
+	valstr(str, pData[userid][cbData][ arg[0] ]);
 }
 else if(!strcmp(str, "var", true))
 {
