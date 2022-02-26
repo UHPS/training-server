@@ -170,4 +170,5 @@ new const cmBlockList[][cmBlockList_enum] = {
 	{1, "SetTeamChannel",	"Сменить анал рации команды", "Параметры: < Team ID > < Channel >"} // 124
 	{1, "SetTeamHealth",	"Сменить HP команды \n* HP меняется после спавна команды!", "Параметры: < Team ID > < HP >"} // 125
 	{1, "SetTeamArmour",	"Сменить ARMOUR команды \n* Ур. брони меняется после спавна команды!", "Параметры: < Team ID > < ARM >"} // 126
+	{1, "SetTeamSpawn",	"Сменить место спавна команды", "Параметры: < Team ID > < XYZ > < FA > < INT >"} // 127
 };
