@@ -4066,13 +4066,86 @@ CB:RenameTeam(playerid, params[])
 	
 	if(teamid < 1 || teamid > 20)
 		return CBWrongData(playerid, blockid, world);
+	teamid--;
 		
 	if(strlen(newname) > 36)
-		return strdel(newname,36,365);
+		strdel(newname,37,365);
 	
 	format(worldTeam[world][teamid][tName], sizeof(worldTeam[world][teamid][tName]), "%s", newname);
 	return true;
 		
+}
+
+CB:SetTeamSkin(playerid, params[])
+{
+	ReturnCommand(playerid, params, world);
+	new 	teamid,
+		newskin;
+		
+	if(sscanf(params,"dd", teamid, newskin))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(teamid < 1 || teamid > 20)
+		return CBWrongData(playerid, blockid, world);
+	teamid--;
+	
+	worldTeam[world][teamid][tSkin] = newskin;
+		
+	return true;
+}
+
+CB:SetTeamChannel(playerid, params[])
+{
+	ReturnCommand(playerid, params, world);
+	new 	teamid,
+		newsch;
+		
+	if(sscanf(params,"dd", teamid, newch))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(teamid < 1 || teamid > 20)
+		return CBWrongData(playerid, blockid, world);
+	teamid--;
+	
+	worldTeam[world][teamid][tChannel] = newch;
+		
+	return true;
+}
+
+CB:SetTeamHealth(playerid, params[])
+{
+	ReturnCommand(playerid, params, world);
+	new 	teamid,
+		newhp;
+		
+	if(sscanf(params,"dd", teamid, newhp))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(teamid < 1 || teamid > 20)
+		return CBWrongData(playerid, blockid, world);
+	teamid--;
+	
+	worldTeam[world][teamid][tHealth] = newhp;
+		
+	return true;
+}
+
+CB:SetTeamArmour(playerid, params[])
+{
+	ReturnCommand(playerid, params, world);
+	new 	teamid,
+		newarm;
+		
+	if(sscanf(params,"dd", teamid, newarm))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(teamid < 1 || teamid > 20)
+		return CBWrongData(playerid, blockid, world);
+	teamid--;
+	
+	worldTeam[world][teamid][tArmour] = newarm;
+		
+	return true;
 }
 
 /*
