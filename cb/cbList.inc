@@ -4148,6 +4148,32 @@ CB:SetTeamArmour(playerid, params[])
 	return true;
 }
 
+CB:SetTeamSpawn(playerid, params[])
+{
+	ReturnCommand(playerid, params, world);
+	new 	teamid,
+		float:newx;
+		float:newy;
+		float:newz;
+		float:newfa;
+		newint;
+		
+	if(sscanf(params,"dffffd", teamid, newx, newy, newz, newfa, newint))
+		return CBWrongData(playerid, blockid, world);
+	
+	if(teamid < 1 || teamid > 20)
+		return CBWrongData(playerid, blockid, world);
+	teamid--;
+	
+	worldTeam[world][teamid][tInt] = newint;
+	worldTeam[world][teamid][tSpawn][0] = newx;
+	worldTeam[world][teamid][tSpawn][1] = newy;
+	worldTeam[world][teamid][tSpawn][2] = newz;
+	worldTeam[world][teamid][tSpawn][3] = newfa;
+		
+	return true;
+}
+
 /*
 CB:donate(playerid, params[])
 {
