@@ -4152,10 +4152,10 @@ CB:SetTeamSpawn(playerid, params[])
 {
 	ReturnCommand(playerid, params, world);
 	new 	teamid,
-		float:newx;
-		float:newy;
-		float:newz;
-		float:newfa;
+		float:newx,
+		float:newy,
+		float:newz,
+		float:newfa,
 		newint;
 		
 	if(sscanf(params,"dffffd", teamid, newx, newy, newz, newfa, newint))
