@@ -1179,3 +1179,19 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "key", true))
+{
+	sscanf(arg, "d", userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+		
+	valstr(str, pInfo[userid][PressedKey];
+}
+
+/*
+Кроме этого в  pInfo нужно добавить переменную PressedKey. А в паблик OnPlayerKeyStateChange вставьте:
+
+if(pInfo[playerid][PressedKey] == 0)
+	pInfo[playerid][PressedKey] = newkeys;
+if(pInfo[playerid][PressedKey] == oldkeys)
+	pInfo[playerid][PressedKey] = 0;
