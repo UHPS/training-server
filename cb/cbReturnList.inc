@@ -1179,3 +1179,36 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "admin", true))
+{
+	sscanf(params,"D(65535)",userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+		
+	valstr(str, pData[userid][pAdmin]);
+}
+else if(!strcmp(str, "moder", true))
+{
+	sscanf(params,"D(65535)",userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+	
+	new lvl;
+	new worldid = GetPlayerVirtualWorld(userid);
+	
+	if(worldArray[worldid][wOwner] == userid)
+		lvl = 6;
+	else
+	pData[userid][pModer] = lvl;
+		
+	valstr(str, lvl);
+}
+else if(!strcmp(str, "host", true))
+{
+	sscanf(params,"D(65535)",userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+		
+	new worldid = GetPlayerVirtualWorld(userid);
+	valstr(str, worldArray[worldid][wOwner]);
+}
