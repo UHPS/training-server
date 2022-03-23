@@ -4100,9 +4100,10 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		return CBWrongData(playerid, blockid, world);
 	if(slotid <= 0 || slotid > 99)
 		return CBWrongData(playerid, blockid, world);
+		
 	if(GangZoneInfo[world][slotid][slot] >= 1) // Удаление зоны, если она существует
 	{
-		for(new i; i < MAX_PLAYERS; i++)
+		foreach(new i : Player)
 		{
 			if(world != GetPlayerVirtualWorld(i))
 					continue;
@@ -4125,13 +4126,27 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 	GangZoneInfo[world][slotid][gmaxx] = maxx;
 	GangZoneInfo[world][slotid][gmaxy] = maxy;
 	GangZoneInfo[world][slotid][zonecolor] = gcolor;
-	for(new i; i < MAX_PLAYERS; i++)
+	
+	if(cmBlock[world][blockid][cbMode])
 	{
-		if(world != GetPlayerVirtualWorld(i))
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+					continue;
+					
+			if(!cbCompareMode(i, blockid))
 				continue;
-		GangZoneShowForPlayer(i,GangZoneInfo[world][slotid][zoneid],StrToHex(gcolor));
+				
+			GangZoneShowForPlayer(i,GangZoneInfo[world][slotid][zoneid],StrToHex(gcolor));
+		}
+		return true;
 	}
+	if(world != GetPlayerVirtualWorld(playerid))
+		return true;
+		
+	GangZoneShowForPlayer(playerid,GangZoneInfo[world][slotid][zoneid],StrToHex(gcolor));	
 	return true;
+	
 }
 
 CB:DeleteGangZone(playerid, blockid, world, params[])
@@ -4146,12 +4161,21 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
 		
-	for(new i; i < MAX_PLAYERS; i++)
+	if(cmBlock[world][blockid][cbMode])
 	{
-		if(world != GetPlayerVirtualWorld(i))
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+					continue;
+					
+			if(!cbCompareMode(i, blockid))
 				continue;
-		GangZoneHideForPlayer(i,GangZoneInfo[world][slotid][zoneid]);
+				
+			GangZoneHideForPlayer(i,GangZoneInfo[world][slotid][zoneid]);
+		}
+		
 	}
+	GangZoneHideForPlayer(playerid,GangZoneInfo[world][slotid][zoneid]);
 	GangZoneDestroy(GangZoneInfo[world][slotid][zoneid]);
 	
 	GangZoneInfo[world][slotid][zoneid] = 0;
@@ -4178,14 +4202,25 @@ CB:StartFlashGangZone(playerid, blockid, world, params[])
 	
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
-	
-	for(new i; i < MAX_PLAYERS; i++)
+		
+	if(cmBlock[world][blockid][cbMode])
 	{
-		if(world != GetPlayerVirtualWorld(i))
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+					continue;
+					
+			if(!cbCompareMode(i, blockid))
 				continue;
-		GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], StrToHex(gcolor));
+				
+			GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], StrToHex(gcolor));
+		}
+		return true;
 	}
-	return true;
+	
+	if(world != GetPlayerVirtualWorld(playerid))
+		continue;
+	GangZoneFlashForPlayer(playerid, GangZoneInfo[world][slotid][zoneid], StrToHex(gcolor));
 }
 
 CB:StopFlashGangZone(playerid, blockid, world, params[])
@@ -4201,13 +4236,23 @@ CB:StopFlashGangZone(playerid, blockid, world, params[])
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
 	
-	for(new i; i < MAX_PLAYERS; i++)
+	if(cmBlock[world][blockid][cbMode])
 	{
-		if(world != GetPlayerVirtualWorld(i))
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+					continue;
+					
+			if(!cbCompareMode(i, blockid))
 				continue;
-		GangZoneStopFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid]);
+			GangZoneStopFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid]);
+		}
+		return true;
 	}
-	return true;
+	
+	if(world != GetPlayerVirtualWorld(playerid))
+		continue;
+	GangZoneStopFlashForPlayer(playerid, GangZoneInfo[world][slotid][zoneid]);
 }
 
 /*
