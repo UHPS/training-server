@@ -2947,6 +2947,13 @@ CB:Create3DText(playerid, blockid, world, params[])
 		pData[playerid][pRetVal][0] = i;
 		tempWorld[world][vActionCount]++;
 		
+		if(VW[world][vDev])
+		{
+			new str1[256];
+			format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d создал новый 3D текст ID %d.",blockid,pData[playerid][pRetVal][0]);
+			SendClientMessage(playerid, COLOR_ORANGE, str1);
+		}
+		
 		return true;
 	}
 	
@@ -2995,6 +3002,12 @@ CB:ShowDialog(playerid, blockid, world, params[])
 	
 	if(cmBlock[world][blockid][cbMode])
 	{
+		if(VW[world][vDev])
+		{
+			new str1[256];
+			format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d вызвал этот диалог.",blockid);
+		} 
+	
 		foreach(new i : Player)
 		{
 			if(world != GetPlayerVirtualWorld(i))
@@ -3005,6 +3018,9 @@ CB:ShowDialog(playerid, blockid, world, params[])
 			
 			pData[i][pRetVal][10] = callBlock;
 			Dialog_Show(i, CBMainDialog, type, "\t{FFFFFF}[ ГЉГ®Г¬Г Г­Г¤Г­Г»Г© ГЎГ«Г®ГЄ ]", str, "Y", "X");
+			
+			if(VW[world][vDev])
+				SendClientMessage(i, COLOR_ORANGE, str1);
 		}
 		
 		return true;
@@ -3015,6 +3031,14 @@ CB:ShowDialog(playerid, blockid, world, params[])
 	
 	pData[playerid][pRetVal][10] = callBlock;
 	Dialog_Show(playerid, CBMainDialog, type, "\t{FFFFFF}[ ГЉГ®Г¬Г Г­Г¤Г­Г»Г© ГЎГ«Г®ГЄ ]", str, "Y", "X");
+	
+	if(VW[world][vDev])
+	{
+		new str1[256];
+		format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d вызвал этот диалог.",blockid);
+		SendClientMessage(playerid,COLOR_ORANGE,str1);
+	}
+	
 	return true;
 }
 
@@ -3061,6 +3085,13 @@ CB:TimerOn(playerid, blockid, world, params[])
 		CBTimer[world][timerid][cbtStatus] = true;
 	}
 
+	if(VW[world][vDev])
+	{
+		new str1[256];
+		format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d активировал таймер №%d",blockid,(timerid + 1));
+		SendClientMessage(playerid, COLOR_ORANGE, str1);
+	}
+	
 	return true;
 }
 
@@ -3080,6 +3111,13 @@ CB:TimerOff(playerid, blockid, world, params[])
 	{
 		KillTimer(CBTimer[world][timerid][cbtID]);
 		CBTimer[world][timerid][cbtStatus] = false;
+	}
+	
+	if(VW[world][vDev])
+	{
+		new str1[256];
+		format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d деактивировал таймер №%d",blockid,(timerid + 1));
+		SendClientMessage(playerid, COLOR_ORANGE, str1);
 	}
 	
 	return true;
@@ -3479,6 +3517,14 @@ CB:ActorCreate(playerid, blockid, world, params[])
 		return CBWrongData(playerid, blockid, world);
 	
 	pData[playerid][pRetVal][0] = addTempActor(world, skin, x, y, z, rx, world, -1);
+	
+	if(VW[world][vDev])
+	{
+		new str1[256];
+		format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d создал нового актёра ID %d.",blockid,pData[playerid][pRetVal][0]);
+		SendClientMessage(playerid, COLOR_ORANGE, str1);
+	}
+	
 	return true;
 }
 
@@ -3513,6 +3559,14 @@ CB:ActorDelete(playerid, blockid, world, params[])
 	actorSystem[ tempWorld[world][aSlot][actorid] ][aNameID] 	= Text3D:INVALID_3DTEXT_ID;
 	
 	tempWorld[world][aSlot][actorid] = false;
+	
+	if(VW[world][vDev])
+	{
+		new str1[256];
+		format(str1,sizeof(str1),"[CB]: {FFFFFF}Командный блок №%d удалил актёра ID %d.",blockid,actorid);
+		SendClientMessage(playerid, COLOR_ORANGE, str1);
+	}
+	
 	return true;
 }
 
@@ -3940,6 +3994,22 @@ CB:SetPlayerPvar(playerid, blockid, world, params[])
 	if(sscanf(params, "p<,>ds[32]s[144]", userid, var, data))
 		return CBWrongData(playerid, blockid, world);
 	
+	if(userid == -1 && cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+				
+			if(updatePlayerVarData(i, var, data) == INVALID_VECTOR_INDEX)
+				return CBWrongData(i, blockid, world);	
+		}
+		return true;
+	}
+	
 	if(world != GetPlayerVirtualWorld(userid))
 		return true;
 
@@ -3976,9 +4046,42 @@ CB:CallTriggerBlock(playerid, blockid, world, params[])
 	if(sscanf(params, "p<,>s[24]d", callBlock, data))
 		return CBWrongData(playerid, blockid, world);
 		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		if(VW[world][vDev])
+		{
+			new str[256];
+			format(str,sizeof(str),"[CB]: {FFFFFF}Командный блок №%d вызвал триггер блок %s.",blockid,callBlock);
+		}
+		
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+				
+			if(!cbCompareMode(i, blockid))
+				continue;
+			
+			if(OnCallSwitchBlock(i, callBlock, world, data) == 0)
+				return CBWrongData(i, blockid, world);
+				
+			if(VW[world][vDev])
+				SendClientMessage(i, COLOR_ORANGE, str);
+		}
+		
+		return true;
+	}
+		
 	if(OnCallSwitchBlock(playerid, callBlock, world, data) == 0)
 		return CBWrongData(playerid, blockid, world);
-
+		
+	if(VW[world][vDev])
+	{
+		new str[256];
+		format(str,sizeof(str),"[CB]: {FFFFFF}Командный блок №%d вызвал триггер блок %s.",blockid,callBlock);
+		SendClientMessage(playerid, COLOR_ORANGE, str);
+	}
+	
 	return true;
 }
 
