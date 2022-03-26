@@ -1179,3 +1179,427 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "count", true))
+{
+	new 	par[12],
+		when[4],
+		count,
+		arr,
+		idw,
+		value;
+	sscanf(arg, "p< >s[12]s[4]d", par, when, value);
+	
+	if(!strcmp(when,"==",true))  idw = 1;
+	if(!strcmp(when,">",true))  idw = 2;
+	if(!strcmp(when,">=",true))  idw = 3;
+	if(!strcmp(when,"<",true))  idw = 4;
+	if(!strcmp(when,"<=",true))  idw = 5;
+	if(!strcmp(when,"!=",true))  idw = 6;
+	
+	if(!strcmp(par,"wanted",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(GetPlayerWantedLevel(i) == value) count++;
+				case 2: if(GetPlayerWantedLevel(i) > value) count++;
+				case 3: if(GetPlayerWantedLevel(i) >= value) count++;
+				case 4: if(GetPlayerWantedLevel(i) < value) count++;
+				case 5: if(GetPlayerWantedLevel(i) <= value) count++;
+				case 6: if(GetPlayerWantedLevel(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"death",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pDeadStage] == value) count++;
+				case 2: if(pData[i][pDeadStage] > value) count++;
+				case 3: if(pData[i[pDeadStage] >= value) count++;
+				case 4: if(pData[i][pDeadStage] < value) count++;
+				case 5: if(pData[i][pDeadStage] <= value) count++;
+				case 6: if(pData[i][pDeadStage] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"team",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if( (pData[i][pTeam] - 1) == value) count++;
+				case 2: if( (pData[i][pTeam] - 1) > value) count++;
+				case 3: if( (pData[i][pTeam] - 1) >= value) count++;
+				case 4: if( (pData[i][pTeam] - 1) < value) count++;
+				case 5: if( (pData[i][pTeam] - 1) <= value) count++;
+				case 6: if( (pData[i][pTeam] - 1) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"skin",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pSkin] == value) count++;
+				case 2: if(pData[i][pSkin] > value) count++;
+				case 3: if(pData[i][pSkin] >= value) count++;
+				case 4: if(pData[i][pSkin] < value) count++;
+				case 5: if(pData[i][pSkin] <= value) count++;
+				case 6: if(pData[i][pSkin] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"veh",true) || !strcmp(par,"vehicle",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(GetPlayerVehicleID(i) == value) count++;
+				case 2: if(GetPlayerVehicleID(i) > value) count++;
+				case 3: if(GetPlayerVehicleID(i) >= value) count++;
+				case 4: if(GetPlayerVehicleID(i) < value) count++;
+				case 5: if(GetPlayerVehicleID(i) <= value) count++;
+				case 6: if(GetPlayerVehicleID(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"vehmodel",true)
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+				
+			
+			switch(idw)
+			{
+				case 1: if( GetVehicleModel(GetPlayerVehicleID(i)) == value) count++;
+				case 2: if( GetVehicleModel(GetPlayerVehicleID(i)) > value) count++;
+				case 3: if( GetVehicleModel(GetPlayerVehicleID(i)) >= value) count++;
+				case 4: if( GetVehicleModel(GetPlayerVehicleID(i)) < value) count++;
+				case 5: if( GetVehicleModel(GetPlayerVehicleID(i)) <= value) count++;
+				case 6: if( GetVehicleModel(GetPlayerVehicleID(i)) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"vehseat",true)
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if( GetPlayerVehicleSeat(i) == value) count++;
+				case 2: if( GetPlayerVehicleSeat(i) > value) count++;
+				case 3: if( GetPlayerVehicleSeat(i) >= value) count++;
+				case 4: if( GetPlayerVehicleSeat(i) < value) count++;
+				case 5: if( GetPlayerVehicleSeat(i) <= value) count++;
+				case 6: if( GetPlayerVehicleSeat(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"ping",true)
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if( GetPlayerPing(i) == value) count++;
+				case 2: if( GetPlayerPing(i) > value) count++;
+				case 3: if( GetPlayerPing(i) >= value) count++;
+				case 4: if( GetPlayerPing(i) < value) count++;
+				case 5: if( GetPlayerPing(i) <= value) count++;
+				case 6: if( GetPlayerPing(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"hr",true)
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if( ((100 * pData[userid][pHit])/pData[userid][pShot]) == value) count++;
+				case 2: if( ((100 * pData[userid][pHit])/pData[userid][pShot]) > value) count++;
+				case 3: if( ((100 * pData[userid][pHit])/pData[userid][pShot]) >= value) count++;
+				case 4: if( ((100 * pData[userid][pHit])/pData[userid][pShot]) < value) count++;
+				case 5: if( ((100 * pData[userid][pHit])/pData[userid][pShot]) <= value) count++;
+				case 6: if( ((100 * pData[userid][pHit])/pData[userid][pShot]) != value) count++;
+				default: continue;
+			}
+		}
+	}
+	
+	if(!strcmp(par,"acid",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pID] == value) count++;
+				case 2: if(pData[i][pID] > value) count++;
+				case 3: if(pData[i][pID] >= value) count++;
+				case 4: if(pData[i][pID] < value) count++;
+				case 5: if(pData[i][pID] <= value) count++;
+				case 6: if(pData[i][pID] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"gun",true) || !strcmp(par,"weapon",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(GetPlayerWeapon(i) == value) count++;
+				case 2: if(GetPlayerWeapon(i) > value) count++;
+				case 3: if(GetPlayerWeapon(i) >= value) count++;
+				case 4: if(GetPlayerWeapon(i) < value) count++;
+				case 5: if(GetPlayerWeapon(i) <= value) count++;
+				case 6: if(GetPlayerWeapon(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"score",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(GetPlayerScore(i) == value) count++;
+				case 2: if(GetPlayerScore(i) > value) count++;
+				case 3: if(GetPlayerScore(i) >= value) count++;
+				case 4: if(GetPlayerScore(i) < value) count++;
+				case 5: if(GetPlayerScore(i) <= value) count++;
+				case 6: if(GetPlayerScore(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"data",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			sscanf(arg,"p<->s[12]dp< >sd",par,arr,when,value);
+			
+			if(arr < 0 || arr > 24)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][cbData][arr] == value) count++;
+				case 2: if(pData[i][cbData][arr] > value) count++;
+				case 3: if(pData[i][cbData][arr] >= value) count++;
+				case 4: if(pData[i][cbData][arr] < value) count++;
+				case 5: if(pData[i][cbData][arr] <= value) count++;
+				case 6: if(pData[i][cbData][arr] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"health",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pHealth] == value) count++;
+				case 2: if(pData[i][pHealth] > value) count++;
+				case 3: if(pData[i][pHealth] >= value) count++;
+				case 4: if(pData[i][pHealth] < value) count++;
+				case 5: if(pData[i][pHealth] <= value) count++;
+				case 6: if(pData[i][pHealth] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"armour",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pArmour] == value) count++;
+				case 2: if(pData[i][pArmour] > value) count++;
+				case 3: if(pData[i][pArmour] >= value) count++;
+				case 4: if(pData[i][pArmour] < value) count++;
+				case 5: if(pData[i][pArmour] <= value) count++;
+				case 6: if(pData[i][pArmour] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"drunk",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			
+			switch(idw)
+			{
+				case 1: if(GetPlayerDrunkLevel(i)  == value) count++;
+				case 2: if(GetPlayerDrunkLevel(i)  > value) count++;
+				case 3: if(GetPlayerDrunkLevel(i)  >= value) count++;
+				case 4: if(GetPlayerDrunkLevel(i)  < value) count++;
+				case 5: ifGetPlayerDrunkLevel(i)  <= value) count++;
+				case 6: if(GetPlayerDrunkLevel(i) != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"money",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pMoney] == value) count++;
+				case 2: if(pData[i][pMoney] > value) count++;
+				case 3: if(pData[i][pMoney] >= value) count++;
+				case 4: if(pData[i][pMoney] < value) count++;
+				case 5: if(pData[i][pMoney] <= value) count++;
+				case 6: if(pData[i][pMoney] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"channel",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(pData[i][pChannel] == value) count++;
+				case 2: if(pData[i][pChannel] > value) count++;
+				case 3: if(pData[i][pChannel] >= value) count++;
+				case 4: if(pData[i][pChannel] < value) count++;
+				case 5: if(pData[i][pChannel] <= value) count++;
+				case 6: if(pData[i][pChannel] != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	if(!strcmp(par,"playerid",true) || !strcmp(par,"id",true))
+	{
+		foreach(new i : Player)
+		{
+			if(GetPlayerVirtualWorld(i) != world)
+				continue;
+			
+			switch(idw)
+			{
+				case 1: if(i == value) count++;
+				case 2: if(i > value) count++;
+				case 3: if(i >= value) count++;
+				case 4: if(i < value) count++;
+				case 5: if(i <= value) count++;
+				case 6: if(i != value) count++;
+				default: continue;
+			}
+			
+		}
+	}
+	
+	valstr(str, count);
+}
