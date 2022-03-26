@@ -4082,23 +4082,26 @@ enum e_GANGZONE_INFO
 	gminy,
 	gmaxx,
 	gmaxy,
-	zonecolor[12];
+	bool:flash,
+	zonecolor;
 }
-new GangZoneInfo[MAX_WORLDS][99][e_GANGZONE_INFO];
+#define MAX_GANGZONES 99
+new GangZoneInfo[MAX_WORLDS][MAX_GANGZONES][e_GANGZONE_INFO];
 
 CB:CreateGangZone(playerid, blockid, world, params[])
 {
 	new 
 		slotid,
-		gcolor[12],
+		gcolor,
 		Float:minx,
 		Float:miny,
 		Float:maxx,
 		Float:maxy;
 	
-	if(sscanf(params, "dsffff", slotid, gcolor, minx, miny, maxx, maxy))
+	if(sscanf(params, "dxffff", slotid, gcolor, minx, miny, maxx, maxy))
 		return CBWrongData(playerid, blockid, world);
-	if(slotid <= 0 || slotid > 99)
+		
+	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
 		
 	if(GangZoneInfo[world][slotid][slot] >= 1) // Удаление зоны, если она существует
@@ -4117,7 +4120,8 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		GangZoneInfo[world][slotid][gminy] = 0;
 		GangZoneInfo[world][slotid][gmaxx] = 0;
 		GangZoneInfo[world][slotid][gmaxy] = 0;
-		GangZoneInfo[world][slotid][zonecolor] = EOS;
+		GangZoneInfo[world][slotid][flash] = false;
+		GangZoneInfo[world][slotid][zonecolor] = 0;
 	}
 	GangZoneInfo[world][slotid][zoneid] = GangZoneCreate(Float:minx, Float:miny, Float:maxx, Float:maxy);
 	GangZoneInfo[world][slotid][slot] = slotid;
@@ -4125,6 +4129,7 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 	GangZoneInfo[world][slotid][gminy] = miny;
 	GangZoneInfo[world][slotid][gmaxx] = maxx;
 	GangZoneInfo[world][slotid][gmaxy] = maxy;
+	GangZoneInfo[world][slotid][flash] = false;
 	GangZoneInfo[world][slotid][zonecolor] = gcolor;
 	
 	if(cmBlock[world][blockid][cbMode])
@@ -4137,14 +4142,14 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 			if(!cbCompareMode(i, blockid))
 				continue;
 				
-			GangZoneShowForPlayer(i,GangZoneInfo[world][slotid][zoneid],StrToHex(gcolor));
+			GangZoneShowForPlayer(i,GangZoneInfo[world][slotid][zoneid],gcolor);
 		}
 		return true;
 	}
 	if(world != GetPlayerVirtualWorld(playerid))
 		return true;
 		
-	GangZoneShowForPlayer(playerid,GangZoneInfo[world][slotid][zoneid],StrToHex(gcolor));	
+	GangZoneShowForPlayer(playerid,GangZoneInfo[world][slotid][zoneid],gcolor);	
 	return true;
 	
 }
@@ -4155,7 +4160,7 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 	if(sscanf(params,"d",slotid))
 		return CBWrongData(playerid, blockid, world);
 	
-	if(slotid <= 0 || slotid > 99)
+	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
@@ -4184,6 +4189,7 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 	GangZoneInfo[world][slotid][gminy] = 0;
 	GangZoneInfo[world][slotid][gmaxx] = 0;
 	GangZoneInfo[world][slotid][gmaxy] = 0;
+	GangZoneInfo[world][slotid][flash] = false;
 	GangZoneInfo[world][slotid][zonecolor] = EOS;
 	
 	return true;
@@ -4191,17 +4197,19 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 
 CB:StartFlashGangZone(playerid, blockid, world, params[])
 {
-	new 	slotid;
-		gcolor[12];
+	new 	slotid,
+		gcolor;
 	
-	if(sscanf(params,"ds",slotid,gcolor))
+	if(sscanf(params,"dx",slotid,gcolor))
 		return CBWrongData(playerid, blockid, world);
 	
-	if(slotid <= 0 || slotid > 99)
+	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
+		
+	GangZoneInfo[world][slotid][flash] = true;
 		
 	if(cmBlock[world][blockid][cbMode])
 	{
@@ -4213,14 +4221,14 @@ CB:StartFlashGangZone(playerid, blockid, world, params[])
 			if(!cbCompareMode(i, blockid))
 				continue;
 				
-			GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], StrToHex(gcolor));
+			GangZoneFlashForPlayer(i, GangZoneInfo[world][slotid][zoneid], gcolor);
 		}
 		return true;
 	}
 	
 	if(world != GetPlayerVirtualWorld(playerid))
 		continue;
-	GangZoneFlashForPlayer(playerid, GangZoneInfo[world][slotid][zoneid], StrToHex(gcolor));
+	GangZoneFlashForPlayer(playerid, GangZoneInfo[world][slotid][zoneid],gcolor);
 }
 
 CB:StopFlashGangZone(playerid, blockid, world, params[])
@@ -4230,11 +4238,13 @@ CB:StopFlashGangZone(playerid, blockid, world, params[])
 	if(sscanf(params,"d",slotid))
 		return CBWrongData(playerid, blockid, world);
 	
-	if(slotid <= 0 || slotid > 99)
+	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
 	
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
+		
+	GangZoneInfo[world][slotid][flash] = false;
 	
 	if(cmBlock[world][blockid][cbMode])
 	{
@@ -4258,7 +4268,7 @@ CB:StopFlashGangZone(playerid, blockid, world, params[])
 /*
 При выходе из мира:
 
-for(new i; i < 99; i++)
+for(new i; i < MAX_GANGZONES; i++)
 {
 	GangZoneHideForPlayer(playerid, i);
 }
@@ -4266,33 +4276,3 @@ for(new i; i < 99; i++)
 */
 
 
-/*
-
-stock StrToHex(string[]) // Для цвета гангзоны
-{
-    new i, value;
-    if (string [0] == '0' && (string [1] == 'x' || string [1] == 'X'))
-    i = 2;
-    while (string [i])
-    {
-        value <<= 4;
-        switch (string [i])
-        {
-            case '0' .. '9':
-                value |= string [i] - '0';
-
-            case 'A' .. 'F':
-                value |= string [i] - 'A' + 10;
-
-            case 'a' .. 'f':
-                value |= string [i] - 'a' + 10;
-
-            default:
-                return 0;
-        }
-        ++i;
-    }
-    return value;
-}
-
-*/
