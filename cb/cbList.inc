@@ -4103,6 +4103,8 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		
 	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
+	
+	slotid--;
 		
 	if(GangZoneInfo[world][slotid][slot] >= 1) // Удаление зоны, если она существует
 	{
@@ -4163,6 +4165,8 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
 	
+	slotid--;
+	
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
 		
@@ -4205,6 +4209,8 @@ CB:StartFlashGangZone(playerid, blockid, world, params[])
 	
 	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
+		
+	slotid--;
 	
 	if(GangZoneInfo[world][slotid][zoneid] == 0)
 		return CBWrongData(playerid, blockid, world);
