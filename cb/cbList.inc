@@ -4091,3 +4091,29 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 	return true;
 }
 */
+
+CB:PlayCrimeReport(playerid, blockid, world, params[])
+{
+	new susid, cid;
+	if(sscanf(params, "dd", susid, cid))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;	
+				
+			PlayCrimeReportForPlayer(i, susid, cid);
+		}
+		return true;
+	}
+		
+	PlayCrimeReportForPlayer(playerid, susid, cid);
+	return true;
+	
+}
