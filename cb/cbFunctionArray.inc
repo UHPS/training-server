@@ -162,4 +162,6 @@ new const cmBlockList[][cmBlockList_enum] = {
 	{1, "SpectatePlayer", 		    "Наблюдать за игроком",   "Наблюдать за игроком: <ID игрока> <ID за кем наблюдать>"}, //113
 	{1, "SpectateVehicle", 		    "Наблюдать за транспортом",   "Наблюдать за транспортом: <ID игрока> <ID транспорта>"}, //114
 	{0, "SpectateDisable", 		    "Отключить режим наблюдения",   "Отключает режим наблюдения."} //115
+	
+	{1, "PlayCrimeReport",		"Воспроизвести CrimeReport",	"Воспроизвести CrimeReport: <ID преступника> <Crime ID> \n \n* Список CrimeID: https://team.sa-mp.com/wiki/Crime_List.html"} // *вставьте свой номер*
 };
