@@ -4091,3 +4091,115 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 	return true;
 }
 */
+CB:ActionMe(playerid, blockid, world, params[])
+{
+	new com[256];
+	
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params,"s[256]",com))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+				
+			cmd_me(i,com);
+		}
+		
+		return true;
+	}
+	
+	cmd_me(playerid,com);
+	return true;
+}
+CB:ActionAme(playerid, blockid, world, params[])
+{
+	new com[256];
+	
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params,"s[256]",com))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+				
+			cmd_ame(i,com);
+		}
+		
+		return true;
+	}
+	
+	cmd_ame(playerid,com);
+	return true;
+}
+CB:ActionDo(playerid, blockid, world, params[])
+{
+	new com[256];
+	
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params,"s[256]",com))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+				
+			cmd_do(i,com);
+		}
+		
+		return true;
+	}
+	
+	cmd_do(playerid,com);
+	return true;
+}
+CB:ActionTry(playerid, blockid, world, params[])
+{
+	new com[256];
+	
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params,"s[256]",com))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+				
+			cmd_try(i,com);
+		}
+		
+		return true;
+	}
+	
+	cmd_try(playerid,com);
+	return true;
+}
