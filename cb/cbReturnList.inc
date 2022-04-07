@@ -1041,6 +1041,54 @@ else if(!strcmp(str, "raycast", true))
 	else if(!strcmp(coord, "z"))
 		format(str, sizeof(str), "%.1f", cZ);
 }			
+
+else if(!strcmp(str, "raycastFrom", true))
+{
+	new 
+		Float:pX, Float:pY, Float:pZ,
+		Float:vX, Float:vY, Float:vZ,
+		Float:atX, Float:atY, Float:atZ,
+		coord[4];
+	
+	sscanf(arg, "F(0.0)F(0.0)F(0.0)F(0.0)D(30)D(0)s[4]", pX, pY, pZ, vZ, arg[0], arg[1], coord);
+	
+	if(isnull(coord))
+		format(coord,sizeof(coord),"xyz");
+	
+			
+	vX = pX + (arg[0]*floatsin(-vZ, degrees));
+	vY = pY + (arg[0]*floatcos(-vZ, degrees));
+			
+	CA_RayCastLine(pX, pY, pZ, vX, vY, pZ, atX, atY, atZ);
+	
+	if(arg[1] == 1)
+	{
+		if(atX == 0.0 && atY == 0.0 && atZ == 0.0)
+			format(str, sizeof(str), "%.1f %.1f %.1f", vX, vY, pZ);
+		else
+			format(str, sizeof(str), "%.1f %.1f %.1f", atX, atY, atZ);
+	}
+	else
+	{
+		format(str, sizeof(str), "%.1f %.1f %.1f", atX, atY, atZ);
+	}
+	
+	if(!strcmp(coord, "xyz"))
+		continue;
+	
+	new Float:cX, Float:cY, Float:cZ;
+	
+	if(sscanf(str, "fff", cX, cY, cZ))
+		continue;
+	
+	if(!strcmp(coord, "x"))
+		format(str, sizeof(str), "%.1f", cX);
+	else if(!strcmp(coord, "y"))
+		format(str, sizeof(str), "%.1f", cY);
+	else if(!strcmp(coord, "z"))
+		format(str, sizeof(str), "%.1f", cZ);
+}	
+
 else if(!strcmp(str, "getZ", true))
 {
 	new 
