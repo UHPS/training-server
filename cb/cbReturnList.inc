@@ -1179,3 +1179,71 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "orX", true))
+{
+    new objectid,
+        Float:cord;
+
+    if(sscanf(arg, "d", objectid))
+        continue;
+
+    objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+    if(objectid <= 0)
+        continue;
+    
+    Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_R_X, cord);
+
+    format(str, sizeof(str), "%.2f", cord);
+}
+else if(!strcmp(str, "orY", true))
+{
+    new objectid,
+        Float:cord;
+
+    if(sscanf(arg, "d", objectid))
+        continue;
+
+    objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+    if(objectid <= 0)
+        continue;
+    
+    Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_R_Y, cord);
+
+    format(str, sizeof(str), "%.2f", cord);
+}
+else if(!strcmp(str, "orZ", true))
+{
+    new objectid,
+        Float:cord;
+
+    if(sscanf(arg, "d", objectid))
+        continue;
+
+    objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+    if(objectid <= 0)
+        continue;
+    
+    Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_R_Z, cord);
+
+    format(str, sizeof(str), "%.2f", cord);
+}
+else if(!strcmp(str, "orXYZ", true))
+{
+    new objectid,
+        Float:orX,
+	Float:orY,
+	Float:orZ;
+
+    if(sscanf(arg, "d", objectid))
+        continue;
+
+    objectid = VECTOR_get_val(WorldObjectSystem[world][wosObject], objectid);
+    if(objectid <= 0)
+        continue;
+    
+    Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_R_X, orX);
+    Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_R_Y, orY);
+    Streamer_GetFloatData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_R_Z, orZ);
+
+    format(str, sizeof(str), "%.2f %.2f %2.f", orX, orY, orZ);
+}
