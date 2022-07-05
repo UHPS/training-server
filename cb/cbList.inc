@@ -4126,8 +4126,8 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 	
 	slotid--;
 
-	if(GangZoneInfo[world][slotid][slot] >= 1) // ЕСЛИ ГЗ УЖЕ СУЩЕСТВУЕТ ТО ОШИБКА, НЕ С НУЛЯ ИБО ПОЗЖЕ ДОБАВЛЯЕМ ЕДИНИЦУ ДЛЯ УДОБСТВА
-		return CBWrongData(playerid, blockid, world);
+	if(GangZoneInfo[world][slotid][slot] >= 1) // ЕСЛИ ГЗ УЖЕ СУЩЕСТВУЕТ ТО ПЕРЕРЫВАЕМ, НЕ С НУЛЯ ИБО ПОЗЖЕ ДОБАВЛЯЕМ ЕДИНИЦУ ДЛЯ УДОБСТВА
+		return false;
 		
 
 	GangZoneInfo[world][slotid][zoneid] = GangZoneCreate(Float:minx, Float:miny, Float:maxx, Float:maxy);
