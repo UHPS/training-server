@@ -1179,3 +1179,98 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "actorxyz", true))
+{
+	new 	actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "d", actorid);
+
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		continue;
+
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		continue;
+
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_X,ax);
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_Y,ay);
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_Z,az);
+
+	format(str, sizeof(str), "%.2f %.2f %.2f", ax, ay, az);
+}
+else if(!strcmp(str, "actorX", true))
+{
+	new 	actorid,
+		float:ax;
+		
+	sscanf(arg, "d", actorid);
+
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		return true;
+
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		return true;
+
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_X,ax);
+
+	format(str, sizeof(str), "%.2f", ax);
+}
+else if(!strcmp(str, "actorY", true))
+{
+	new 	actorid,
+		float:ay;
+		
+	sscanf(arg, "d", actorid);
+
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		continue;
+
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		continue;
+
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_Y,ay);
+
+	format(str, sizeof(str), "%.2f", ay);
+}
+else if(!strcmp(str, "actorZ", true))
+{
+	new 	actorid,
+		float:az;
+		
+	sscanf(arg, "d", actorid);
+
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		continue;
+
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		continue;
+
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_Z,az);
+
+	format(str, sizeof(str), "%.2f", az);
+}
+else if(!strcmp(str, "GetDistActor", true))
+{
+	new 	
+		actorid,
+		float:ax,
+		float:ay,
+		float:az;
+	sscanf(arg, "dD(65535)", actorid, userid);
+
+	if(actorid < 0 || actorid > MAX_ACTOR_SLOT)
+		continue;
+
+	if(!IsValidDynamicActor(tempWorld[world][aSlot][actorid]))
+		continue;
+
+	if(!IsPlayerOnline(plyid))
+		userid = playerid;
+
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_X,ax);
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_Y,ay);
+	Streamer_GetFloatData(STREAMER_TYPE_ACTOR,tempWorld[world][aSlot][actorid],E_STREAMER_Z,az);
+	
+	format(str, sizeof(str), "%.2f", GetPlayerDistanceFromPoint(userid,ax,ay,az) );
+}
