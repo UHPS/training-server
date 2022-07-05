@@ -4123,11 +4123,11 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 		
 	if(slotid <= 0 || slotid > MAX_GANGZONES) // ПРОВЕРКА НА ПРАВИЛЬНО ЗАПИСАНЫЙ СЛОТ
 		return CBWrongData(playerid, blockid, world);
+	
+	slotid--;
 
 	if(GangZoneInfo[world][slotid][slot] >= 1) // ЕСЛИ ГЗ УЖЕ СУЩЕСТВУЕТ ТО ОШИБКА, НЕ С НУЛЯ ИБО ПОЗЖЕ ДОБАВЛЯЕМ ЕДИНИЦУ ДЛЯ УДОБСТВА
 		return CBWrongData(playerid, blockid, world);
-	
-	slotid--;
 		
 
 	GangZoneInfo[world][slotid][zoneid] = GangZoneCreate(Float:minx, Float:miny, Float:maxx, Float:maxy);
@@ -4150,11 +4150,11 @@ CB:DeleteGangZone(playerid, blockid, world, params[])
 	
 	if(slotid <= 0 || slotid > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
+		
+	slotid--;	
 	
 	if(GangZoneInfo[world][slotid][slot] <= 0 || GangZoneInfo[world][slotid][slot] > MAX_GANGZONES)
 		return CBWrongData(playerid, blockid, world);
-
-	slotid--;
 
 	
 	GangZoneDestroy(GangZoneInfo[world][slotid][zoneid]);
