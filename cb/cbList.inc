@@ -4091,3 +4091,53 @@ CB:CreateGangZone(playerid, blockid, world, params[])
 	return true;
 }
 */
+
+CB:MoveCamera(playerid, blockid, world, params[])
+{
+	new 
+		float:startX,
+		float:startY,
+		float:startZ,
+		float:stopX,
+		float:stopY,
+		float:stopZ,
+		mtime,
+		meth;
+
+	ReturnCommand(playerid, params, world);
+	
+	if(sscanf(params, "ffffffD(1000)D(0)", slartX, startY, startZ, stopX, stopY, stopZ, mtime, meth))
+		return CBWrongData(playerid, blockid, world);
+		
+	if(cmBlock[world][blockid][cbMode])
+	{
+		foreach(new i : Player)
+		{	
+			if(world != GetPlayerVirtualWorld(i))
+				continue;
+			
+			if(!cbCompareMode(i, blockid))
+				continue;
+				
+			TogglePlayerSpectating(i, true);
+			
+			if(meth == 0)
+				InterpolateCameraPos(startX, startY, startZ, stopX, stopY, stopZ, time, CAMERA_MOVE);
+			else
+				InterpolateCameraLookAt(startX, startY, startZ, stopX, stopY, stopZ, time, CAMERA_MOVE);
+		
+		}
+		return true;
+	}
+	
+	if(world != GetPlayerVirtualWorld(playerid))
+		return true;	
+		
+	TogglePlayerSpectating(i, true);
+	if(meth == 0)
+		InterpolateCameraPos(startX, startY, startZ, stopX, stopY, stopZ, time, CAMERA_MOVE);
+	else
+		InterpolateCameraLookAt(startX, startY, startZ, stopX, stopY, stopZ, time, CAMERA_MOVE);
+	
+	return true;
+}
