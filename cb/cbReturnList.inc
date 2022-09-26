@@ -1179,3 +1179,37 @@ else if(!strcmp(str, "nearply", true))
 	
 	valstr(str, lastData[1]);
 }
+else if(!strcmp(str, "nearaction", true))
+{
+	sscanf(arg, "d", userid);
+	if(!IsPlayerOnline(userid))
+		userid = playerid;
+
+	new	Float: X,
+		Float: Y,
+		Float: Z;
+
+	new	lastData[2] = { cellmax, -1 };
+
+
+	for(new m; m < tempWorld[world][vActionCount]; m++)
+	{
+		if(!checkValidAction(m, world))
+			continue;
+
+
+		Streamer_GetFloatData(STREAMER_TYPE_3D_TEXT_LABEL,
+		Text3D:worldAction[world][m][vAction], E_STREAMER_X, X);
+		Streamer_GetFloatData(STREAMER_TYPE_3D_TEXT_LABEL,
+		Text3D:worldAction[world][m][vAction], E_STREAMER_Y, Y);
+		Streamer_GetFloatData(STREAMER_TYPE_3D_TEXT_LABEL,
+		Text3D:worldAction[world][m][vAction], E_STREAMER_Z, Z);
+
+		if(floatround(GetPlayerDistanceFromPoint(userid, X, Y, Z)) < lastData[0]) 
+		{
+			lastData[0] = floatround(GetPlayerDistanceFromPoint(userid, X, Y, Z));
+			lastData[1] = i;
+		}
+	}
+	valstr(str, lastData[1]);
+}
